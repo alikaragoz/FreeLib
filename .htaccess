@@ -1,0 +1,5 @@
+# VISUALISATION DES DOSSIERS INTERDITE
+Options -Indexes
+
+# Option le caching en HTML5
+AddType text/cache-manifest .manifest
