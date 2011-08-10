@@ -1,0 +1,351 @@
+/*
+	Common : General	
+*/
+
+body,ul,li {
+	padding:0;
+	margin:0;
+	border:0;
+}
+
+body {
+	font-size:12px;
+	-webkit-user-select:none;
+    -webkit-text-size-adjust:none;
+	font-family:"Helvetica Neue";
+}
+
+.clr {
+	clear: left;
+}
+
+/*
+	Common : Header
+*/
+
+#header {
+	position:absolute; z-index:2;
+	top:0; left:0;
+	width:100%;
+	height:50px;
+	line-height:50px;
+	background-color:#d51875;
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #727270), color-stop(0.03, #444444), color-stop(1, #2B2B2B));
+	padding:0;
+	color:#eee;
+	font-size:20px;
+	-webkit-box-shadow: 0px 0px 5px #111;
+}
+
+#header #title {
+	height: 50px;
+	width: 60px;
+	background-image: url(../assets/ui_elements.png);
+	background-size: 500px;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+}
+
+#header a {
+	color:#f3f3f3;
+	text-decoration:none;
+	font-weight:bold;
+	text-shadow:0 -1px 0 rgba(0,0,0,0.5);
+}
+
+/*
+	Content
+*/
+
+#wrapper {
+	position:absolute; z-index:1;
+	top:50px; bottom:0; left:0;
+	width:100%;
+	background-image:url(../assets/fiber_bg.png);
+	overflow:auto
+}
+
+/* Scroller */
+
+#scroller {
+	position:absolute; z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+#scroller ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+}
+
+#scroller li {
+	border-bottom:1px solid #fff;
+	font-size:14px;
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #fff), color-stop(1, #e7e7e7));
+	-webkit-box-shadow: 0px 1px 3px #d3d3d3;
+	position: relative;
+	height: 90px;
+}
+
+#scroller li .location {
+	padding: 0px 5px 0px 5px;
+}
+
+#scroller .location .adresse {
+	font-weight: bold;
+	color: #585858;
+	text-shadow: 0 1px 0 #dedede;
+	word-break: break-word;	
+	line-height: 14px;
+	height: 40px;
+	text-align: center;
+	display: -webkit-box;
+	-webkit-box-orient:horizontal;
+	-webkit-box-pack:center;
+	-webkit-box-align:center;
+}
+
+#scroller .location .velib_id {
+	font-weight: bold;
+	color: white;
+	text-shadow: 0 1px 0 #bbb;
+	background-color: #dfdfdf;
+	padding: 0px 4px;
+	position: absolute;
+	bottom: 33px;
+	font-size: 14px;
+	-webkit-box-shadow: -1px 0px 0px white;
+	-webkit-transform: rotate(-90deg);
+	-webkit-border-radius: 4px;
+	right: 0;
+}
+
+#scroller .velib_status {
+	width: 230px;
+	height: 40px;
+	position: relative;
+	margin: 0 auto;
+}
+
+/* Free Velibs */
+
+#scroller .velib_status .velib_num .sign {
+	height: 50px;
+	width: 55px;
+	float: left;
+	background-image: url(../assets/ui_elements.png);
+	background-size: 500px;
+	background-repeat: no-repeat;
+	background-position: 0 -67px;
+}
+
+#scroller .velib_status .velib_num .flip:before {
+	content: '';
+	display: block;
+	z-index: 200;
+	width: 2px;
+	height: 15px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: -webkit-gradient(linear, left top, left bottom, from(black), color-stop(.35, #424242), color-stop(.52, #363636), to(black));
+	border: 1px solid black;
+	-webkit-box-shadow: -1px -1px 0 rgba(0, 0, 0, .2), 
+						1px 1px 0 rgba(255, 255, 255, .05) inset, 
+						1px 0 10px rgba(0, 0, 0, 1), 
+						1px 1px 0 rgba(255, 255, 255, .06);
+	float: left;
+	position: relative;
+	left: 14px;
+	top: 11px;
+}
+
+#scroller .velib_status .velib_num .flip .num {
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	background: #333;
+	background: -webkit-gradient(linear, 30% top, 70% bottom, from(#383838), color-stop(.5, #111), to(#363636));
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .1) inset, 
+						0 1px 0 rgba(0, 0, 0, 1) inset, 
+						0 3px 0 rgba(255, 255, 255, .2) inset, 
+						0 4px 0 rgba(0, 0, 0, .75) inset, 
+						0 5px 0 rgba(255, 255, 255, .2) inset, 
+						0 -1px 0 rgba(255, 255, 255, .1) inset, 
+						0 -2px 0 black inset, 
+						0 -3px 0 rgba(255, 255, 255, .18) inset, 
+						0 -5px 0 black inset, 
+						0 -6px 0 rgba(255, 255, 255, .08) inset, 
+						0 0 30px rgba(0, 0, 0, .3) inset;
+	color: white;
+	text-align: center;
+	line-height: 0px;
+	-webkit-border-radius: 4px;
+	font-size: 22px;
+	letter-spacing: 2px;
+	padding-left: 2px;
+	font-weight: bold;
+	float: left;
+	margin-left: 10px;
+}
+
+#scroller .velib_status .velib_num .flip .num:before {
+	content: '';
+	display: block;
+	z-index: 100;
+	width: 40px;
+	height: 20px;
+	background: -webkit-gradient(linear, left 80%, left bottom, from(transparent), to(rgba(0, 0, 0, .4)));
+	-webkit-box-shadow: 0 -1px 0 rgba(0, 0, 0, .2) inset, 0 1px 0 rgba(255, 255, 255, .04), 0 5px 100px rgba(255, 255, 255, .3);
+	position: relative;
+	left: -2px;
+}
+
+#scroller .velib_status .velib_num .flip .num:after {
+	content: '';
+	display: block;
+	z-index: 100;
+	top: -9px;
+	left: 35px;
+	width: 2px;
+	height: 15px;
+	-webkit-border-radius: 3px;
+	background: -webkit-gradient(linear, left top, left bottom, from(black), color-stop(.35, #424242), color-stop(.52, #363636), to(black));
+	border: 1px solid black;
+	-webkit-box-shadow: -1px -1px 0 rgba(0, 0, 0, .2), 1px 1px 0 rgba(255, 255, 255, .05) inset, 1px 0 10px rgba(0, 0, 0, 1), 1px 1px 0 rgba(255, 255, 255, .06);
+	position: relative;
+}
+
+/* Free Parks*/
+
+#scroller .velib_status .parks_num .sign {
+	height: 50px;
+	width: 55px;
+	float: left;
+	background-image: url(../assets/ui_elements.png);
+	background-size: 500px;
+	background-repeat: no-repeat;
+	background-position: 0px -125px;
+	text-indent: 21px;
+	line-height: 44px;
+	font-size: 22px;
+	font-weight: bold;
+	color: white;
+}
+
+#scroller .velib_status .parks_num .flip:before {
+	content: '';
+	display: block;
+	z-index: 200;
+	width: 2px;
+	height: 15px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: -webkit-gradient(linear, left top, left bottom, from(black), color-stop(.35, #424242), color-stop(.52, #363636), to(black));
+	border: 1px solid black;
+	-webkit-box-shadow: -1px -1px 0 rgba(0, 0, 0, .2), 
+						1px 1px 0 rgba(255, 255, 255, .05) inset, 
+						1px 0 10px rgba(0, 0, 0, 1), 
+						1px 1px 0 rgba(255, 255, 255, .06);
+	float: left;
+	position: relative;
+	left: 4px;
+	top: 11px;
+}
+
+#scroller .velib_status .parks_num .flip .num {
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	background: #333;
+	background: -webkit-gradient(linear, 30% top, 70% bottom, from(#383838), color-stop(.5, #111), to(#363636));
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .1) inset, 
+						0 1px 0 rgba(0, 0, 0, 1) inset, 
+						0 3px 0 rgba(255, 255, 255, .2) inset, 
+						0 4px 0 rgba(0, 0, 0, .75) inset, 
+						0 5px 0 rgba(255, 255, 255, .2) inset, 
+						0 -1px 0 rgba(255, 255, 255, .1) inset, 
+						0 -2px 0 #000 inset, 0 -3px 0 rgba(255, 255, 255, .18) inset, 
+						0 -5px 0 #000 inset, 0 -6px 0 rgba(255, 255, 255, .08) inset, 
+						0 0 30px rgba(0, 0, 0, .3) inset;
+	color: #fff;
+	text-align: center;
+	line-height: 0px;
+	-webkit-border-radius: 4px;
+	font-size: 22px;
+	letter-spacing: 3px;
+	padding-left: 3px;
+	font-weight: bold;
+}
+
+#scroller .velib_status .parks_num .flip .num:before {
+	content: '';
+	display: block;
+	z-index: 100;
+	width: 40px;
+	height: 20px;
+	background: -webkit-gradient(linear, left 80%, left bottom, from(transparent), to(rgba(0, 0, 0, .4)));
+	-webkit-box-shadow: 0 -1px 0 rgba(0, 0, 0, .2) inset, 0 1px 0 rgba(255, 255, 255, .04), 0 5px 100px rgba(255, 255, 255, .3);
+	position: relative;
+	left: -2px;
+}
+
+#scroller .velib_status .parks_num .flip .num:after {
+	content: '';
+	display: block;
+	z-index: 100;
+	top: -9px;
+	left: 35px;
+	width: 2px;
+	height: 15px;
+	-webkit-border-radius: 3px;
+	background: -webkit-gradient(linear, left top, left bottom, from(black), color-stop(.35, #424242), color-stop(.52, #363636), to(black));
+	border: 1px solid black;
+	-webkit-box-shadow: -1px -1px 0 rgba(0, 0, 0, .2), 1px 1px 0 rgba(255, 255, 255, .05) inset, 1px 0 10px rgba(0, 0, 0, 1), 1px 1px 0 rgba(255, 255, 255, .06);
+	position: relative;
+}
+
+
+/* Content when empty */
+
+#content {
+	width:100%;
+	height : 100%;
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+	text-align: center;
+	font-size: 42px;
+	color: rgba(255,255,255,0.19);
+	text-shadow: 0px -1px 0px #010101;
+}
+
+/* Retina display css */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+
+	#header #title {
+		height: 50px;
+		background-image: url(../assets/ui_elements.png);
+		background-size: 500px;
+		background-repeat: no-repeat;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

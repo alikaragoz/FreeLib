@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html manifest="i.manifest">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<style type="text/css">@import url(css/i.css);</style>
+<script type="application/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript">
+var myScroll;
+
+function loaded() {
+	setTimeout(function () {
+		myScroll = new iScroll('wrapper');
+	}, 100);
+}
+window.addEventListener('load', loaded, false);
+
+</script>
+<title>FreeLib’</title>
+</head>
+<body>
+<div id="header">
+	<div id="title"></div>
+</div>
+<div id="wrapper">
+	<div id="content">Pas de station favorite</div>
+</div>
+</body>
+</html>
