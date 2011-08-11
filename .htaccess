@@ -1,9 +1,3 @@
-# SECURISATION
-AuthUserFile /home/www/freelib.me/htdocs/.htpasswd
-AuthGroupFile /dev/null
-AuthName "Admin"
-AuthType Basic
-
 # VISUALISATION DES DOSSIERS INTERDITE
 Options -Indexes
 
