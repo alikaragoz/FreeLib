@@ -1,4 +1,9 @@
 var freelib = (function() {
+	
+	// Global variables
+	var map = new Array();
+	var db = null;
+	
 	// YQL variables
 	var yqlURL = "http://query.yahooapis.com/v1/public/yql?q=";
 	var yqlStatement = "select * from xml where url='";
@@ -29,24 +34,56 @@ var freelib = (function() {
 		}
 	}
 	
-	//TODO : Finir la fonction loadMap
-	function loadMap () {
-		
-		var yqlStatement = "select * from xml where url='";
+	// TODO : do some tests.
+	// Database reset
+	function resetDB() {
+    	if (window.openDatabase) {
+        	db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
+        	db.transaction(function (tx) {
+        		tx.executeSql('DROP TABLE IF EXISTS map', [], function () {});
+      		});
+        }
+	}
+	
+	// We retrive the map array from the xml
+	function getMap () {
+		// We build the YQL URL to fetch the map on velib's service
 		var mapURL = yqlURL + encodeURIComponent(yqlStatement) + encodeURIComponent(velibServiceURL) + '/' + mapArgument + yqlCallBack;
+		var xml = new Array();
 		$.getJSON(
 			mapURL,
-			function(data) {
-				//var available = data.query.results.station.available;
-				//console.log(data);
+			function (data) {
+				xml = data
 		})
-		.error(function(){
+		.complete(function() {
+			populateMapDB(xml.query.results.carto.markers.marker);
+		})
+		.error(function() {
 			console.log('An error occurred	while parsing the maps data');
 		});
 	}
 	
+	// We fill the database with the list of all the stations
+	function populateMapDB(map) {
+		// If the map is not empty
+		if(map != null) {
+			db.transaction(function (tx) {
+				var i = 0
+				$(map).each(function() {
+					tx.executeSql('INSERT INTO map (id, address, bonus, fullAddress, lat, lng, name, number, open) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [i, this.address, this.bonus, this.fullAddress, this.lat, this.lng, this.name, this.number, this.open]);
+					i++;
+				});	
+			});
+		}
+		else {
+			console.log('An error occurred while loading the map');
+		}
+	}
+	
 	return {
-    init: initDb,
-    loadMap: loadMap
+    	init: initDb,
+    	reset: resetDB,
+    	getMap: getMap,
+    	populateMapDB: populateMapDB
     };
 })();
