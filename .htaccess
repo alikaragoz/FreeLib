@@ -1,5 +1,11 @@
+# SECURISATION
+AuthUserFile .htpasswd
+AuthGroupFile /dev/null
+AuthName "Admin"
+AuthType Basic
+
 # VISUALISATION DES DOSSIERS INTERDITE
 Options -Indexes
 
-# Option le caching en HTML5
+# OPTION DU CACHING EN HTML5
 AddType text/cache-manifest .manifest
