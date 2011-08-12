@@ -115,7 +115,7 @@ var freelib = (function() {
                     if(results.rows && results.rows.length) {
                         $("#search_results").text("");
                         for (i = 0; i < results.rows.length; i++) {
-                            $("#search_results").append("<li>" + results.rows.item(i)['fullAddress'] + "</li>");
+                            $("#search_results").append('<li>' + results.rows.item(i)['fullAddress'] + '</li>');
                         }
                     }
                     else{

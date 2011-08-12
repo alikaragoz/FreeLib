@@ -13,6 +13,7 @@ body {
 	-webkit-user-select:none;
     -webkit-text-size-adjust:none;
 	font-family:"Helvetica Neue";
+	-webkit-box-sizing: border-box;
 }
 
 .clr {
@@ -30,7 +31,9 @@ body {
 	height:50px;
 	line-height:50px;
 	background-color:#d51875;
-	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #727270), color-stop(0.03, #444444), color-stop(1, #2B2B2B));
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #4a515f), color-stop(1, #282c32));
+	border-top: 1px solid #5f697a;
+	border-bottom: 1px solid #6c7588;
 	padding:0;
 	color:#eee;
 	font-size:20px;
@@ -59,7 +62,7 @@ body {
 
 #wrapper {
 	position:absolute; z-index:1;
-	top:50px; bottom:0; left:0;
+	top:103px; bottom:0; left:0;
 	width:100%;
 	background-image:url(../assets/fiber_bg.png);
 	overflow:auto
@@ -312,7 +315,7 @@ body {
 /* Content when empty */
 
 #content {
-	width:100%;
+	width: 100%;
 	height : 100%;
 	display: -webkit-box;
 	-webkit-box-orient: horizontal;
@@ -322,6 +325,67 @@ body {
 	font-size: 42px;
 	color: rgba(255,255,255,0.19);
 	text-shadow: 0px -1px 0px #010101;
+}
+
+/* Search box */
+
+#search_box_bg {
+	height: 52px;
+	top: 51px;
+	z-index: 100;
+	position: relative;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.35);
+	background-image:url(../assets/fiber_bg.png);
+}
+
+
+#search_box {
+	height: 40px;
+	z-index: 100;
+	position: relative;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.35);
+	-webkit-box-shadow: inset 0 0 5px 5px rgba(0,0,0,0.3);
+	padding-top: 12px;
+}
+
+
+
+#search_box #search_shape {
+	padding: 0px 15px;
+	overflow: hidden;
+	-webkit-border-radius: 50px;
+	background-color: rgba(0, 0, 0, 0.35);
+	-webkit-box-shadow: inset 0 0 4px 4px rgba(0,0,0,0.5);
+	margin: 0 10px;
+	height: 29px;
+	background-image: url(../assets/ui_elements.png);
+	background-position: -7px -386px;
+	background-repeat: no-repeat;
+	background-size: 500px;
+}
+
+#search_box #search {
+	border: none;
+	background: none;
+	width: 100%;
+	font-size: 15px;
+	color: #7c818a;
+	text-shadow: 0 1px 1px #000;
+	padding-left: 20px;
+	outline: none;
+}
+
+ul#search_results {
+
+}
+
+ul#search_results li {
+	height: 50px;
+	border-top: 1px solid white;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #e9eae9), color-stop(1, #f2f4f1));
+	-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 2px 7px rgba(0, 0, 0, 0.1) inset, 0px 0px 0 rgba(0, 0, 0, 0), 0px 0px 0 rgba(0, 0, 0, 0);
 }
 
 /* Retina display css */
