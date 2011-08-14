@@ -14,6 +14,7 @@ body {
     -webkit-text-size-adjust:none;
 	font-family:"Helvetica Neue";
 	-webkit-box-sizing: border-box;
+	background-image:url(../assets/fiber_bg.png);
 }
 
 .clr {
@@ -44,8 +45,9 @@ body {
 	height: 50px;
 	width: 60px;
 	background-image: url(../assets/ui_elements.png);
-	background-size: 500px;
 	background-repeat: no-repeat;
+	background-position: 0px 4px;
+	left: 10px;
 	margin: 0 auto;
 }
 
@@ -56,23 +58,105 @@ body {
 	text-shadow:0 -1px 0 rgba(0,0,0,0.5);
 }
 
+#header #search {
+	position: absolute;
+	display: block;
+	height: 50px;
+	width: 50px;
+	right: 3px;
+	top: 0;
+	font-size: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-weight: bold;
+}
+
+/*
+	Common  : Footer
+*/
+
+#footer	{
+	position: absolute;
+	z-index: 2;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 48px;
+	background-color: #222;
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #4a515f), color-stop(1, #282c32));
+	-webkit-box-shadow: 0 3px 9px rgba(0,0,0,6);
+	border-top: 1px solid #5f697a;
+	border-bottom: 1px solid #363b44;
+	padding: 0;
+}
+
+#footer ul {
+	display: block;
+	width: 250px;
+	margin: 0 auto;
+	list-style: none;
+	padding-left: 50px;
+	padding-top: 10px;
+}
+
+#footer ul li {
+	display: block;
+	position: relative;
+	float: left;
+	width: 30px;
+	height: 30px;
+	background-image: url(../assets/ui_elements.png);
+	background-repeat: no-repeat;
+}
+
+#footer #cursor {
+	background-position: -18px -683px;
+	margin-top: -22px;
+	height: 12px;
+	width: 21px;
+	margin-left: 5px;
+}
+
+#footer	#favs {
+	background-position: -13px -503px;
+}
+
+#footer	#search {
+	margin-left: 50px;
+	margin-right: 50px;
+	background-position: -13px -566px;
+}
+
+#footer	#info {
+	background-position: -13px -626px;
+}
 /*
 	Content
 */
 
-#wrapper {
-	position:absolute; z-index:1;
-	top:103px; bottom:0; left:0;
+#fav-wrapper {
+	position:absolute; 
+	z-index:1;
+	top:51px; bottom:0; left:0;
 	width:100%;
 	background-image:url(../assets/fiber_bg.png);
-	background-size: 128px;
+	overflow:auto
+}
+
+#search-wrapper {
+	position:relative; 
+	z-index:1;
+	top:51px; bottom:0; left:0;
+	width:100%;
+	background-image:url(../assets/fiber_bg.png);
 	overflow:auto
 }
 
 /* Scroller */
 
 #scroller {
-	position:absolute; z-index:1;
+/*	position:absolute; */
+	z-index:1;
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 	width:100%;
 	padding:0;
@@ -144,7 +228,6 @@ body {
 	width: 55px;
 	float: left;
 	background-image: url(../assets/ui_elements.png);
-	background-size: 500px;
 	background-repeat: no-repeat;
 	background-position: 0 -67px;
 }
@@ -213,7 +296,7 @@ body {
 }
 
 #scroller .velib_status .velib_num .flip .num1:after,
-#scroller .velib_status .velib_num .flip .num1:after {
+#scroller .velib_status .velib_num .flip .num2:after {
 	content: '';
 	display: block;
 	z-index: 100;
@@ -235,7 +318,6 @@ body {
 	width: 55px;
 	float: left;
 	background-image: url(../assets/ui_elements.png);
-	background-size: 500px;
 	background-repeat: no-repeat;
 	background-position: 0px -125px;
 	text-indent: 21px;
@@ -320,6 +402,12 @@ body {
 	position: relative;
 }
 
+#scroller .velib_status .parks_num .flip .num2:after {
+	top: 10px;
+	left: 209px;
+	position: absolute;
+}
+
 
 /* Content when empty */
 
@@ -346,7 +434,8 @@ body {
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.35);
 	background-image:url(../assets/fiber_bg.png);
-	background-size: 128px;
+	display: none;
+	z-index: 1;
 }
 
 
@@ -373,7 +462,6 @@ body {
 	background-image: url(../assets/ui_elements.png);
 	background-position: -7px -386px;
 	background-repeat: no-repeat;
-	background-size: 500px;
 }
 
 #search_box #geolocate {
@@ -383,7 +471,6 @@ body {
 	right: 1px;
 	top: 1px;
 	background-image: url(../assets/ui_elements.png);
-	background-size: 500px;
 	background-repeat: no-repeat;
 	background-position: 1px -433px;
 	display: block;
@@ -408,18 +495,30 @@ ul#search_results li {
 	height: 80px;
 	border-top: 1px solid white;
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #e9eae9), color-stop(1, #f2f4f1));
-	-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 2px 5px rgba(0, 0, 0, 0.3e) inset, 0px 0px 0 rgba(0, 0, 0, 0), 0px 0px 0 rgba(0, 0, 0, 0);
+	-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 2px 5px rgba(0, 0, 0, 0.3) inset, 0px 0px 0 rgba(0, 0, 0, 0), 0px 0px 0 rgba(0, 0, 0, 0);
 }
 
 /* Retina display css */
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-
-	#header #title {
-		height: 50px;
-		background-image: url(../assets/ui_elements.png);
-		background-size: 500px;
-		background-repeat: no-repeat;
+	#header #title,
+	#search_box #geolocate,
+	#search_box #search_shape,
+	#footer #cursor,
+	#footer	#favs,
+	#footer	#search,
+	#footer	#info,
+	#scroller .velib_status .velib_num .sign,
+	#scroller .velib_status .parks_num .sign {
+		background-image: url(../assets/ui_elements@x2.png);
+		background-size: 59px;
+	}
+	
+	body,
+	#wrapper,
+	#search_box_bg {
+		background-image:url(../assets/fiber_bg.png);	
+		background-size: 128px;
 	}
 }
 

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- <html manifest="freelib.manifest"> -->
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -12,19 +13,33 @@
 <!-- Not yet specified -->
 <!-- <link rel="apple-touch-startup-image" href="start.png"> -->
 
-<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png"/>
+<link rel="apple-touch-icon-precomposed" href="assets/apple-touch-icon.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/touch-icon-ipad.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/apple-touch-icon.png" />
+
 <style type="text/css">@import url(css/i.css);</style>
-<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<style type="text/css">@import url(css/add2home.css);</style>
+<script type="application/javascript" src="js/jquery-1.6.2.min.js"></script>
 <script type="application/javascript" src="js/iscroll.js"></script>
+<script type="application/javascript" src="js/add2home.js"></script>
 <script type="application/javascript" src="js/latlon.js"></script>
 <script type="application/javascript" src="js/freelib.js"></script>
 <script type="text/javascript">
 
+var favScroll;
+var searchScroll;
+
+function loaded() {
+	setTimeout(function () {
+		//favScroll = new iScroll('fav-wrapper');
+		//searchScroll = new iScroll('search-wrapper');
+	}, 200);
+}
+window.addEventListener('load', loaded, false);
+
 freelib.init();
 //freelib.reset();
 freelib.getMap();
-
-
 </script>
 <title>FreeLib’</title>
 </head>
@@ -40,8 +55,22 @@ freelib.getMap();
 		</div>
 	</div>
 </div>
-<div id="wrapper">
+
+<div id="fav-wrapper">
+	<div id="content">Favoris</div>
 	<ul id="scroller"></ul>
+</div>
+<div id="search-wrapper">
+	<div id="content">Search</div>
+	<ul id="scroller"></ul>
+</div>
+<div id="footer">
+	 <ul>
+		<li id="cursor"></li>
+	 	<li id="favs"></li>
+		<li id="search"></li>
+		<li id="info"></li>
+	 </ul>
 </div>
 </body>
 </html>

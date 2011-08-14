@@ -1,8 +1,5 @@
 var freelib = (function() {
-	
-	// Scroller
-	var myScroll;
-	
+		
     // Global variables
     var map = new Array();
     var db = null;
@@ -29,14 +26,8 @@ var freelib = (function() {
 	
 	// Initialisation function
 	function init () {
-		
-		// Init of the scroller
-		setTimeout(function () {
-			myScroll = new iScroll('wrapper');
-		}, 100);
-		
 		// For more accurate positionning 
-		geoWatcher();
+		//geoWatcher();
 		
 		// We check if the database already exists
 		initDb();
@@ -104,6 +95,7 @@ var freelib = (function() {
             	db.transaction(function(tx) {
 	                var i = 0
 	                $(map).each(function() {
+						console.log('Hello World!');
 	                    tx.executeSql('INSERT INTO map (id, address, bonus, fullAddress, lat, lng, name, number, open) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [i, this.address, this.bonus, this.fullAddress, this.lat, this.lng, this.name, this.number, this.open]);
 	                    i++;
 	                });
@@ -230,6 +222,9 @@ var freelib = (function() {
 	                tx.executeSql('SELECT * FROM map', [],
 	                function(tx, results) {
 	                    if(results.rows && results.rows.length) {
+		
+							$("#scroller").text('');
+							
 							// Our flag to know if there are available stations
 							var	stationsAround = 0;
 							
@@ -267,10 +262,13 @@ var freelib = (function() {
 								
 								// Asynchronous update of the stations status
 								getStationsStatus(stations.sort());
+								
+								// We continue to look for the users position
+								geoWatcher();
 							}
 	                    }
 						else {
-		                    console.log('No results found.');
+		                    console.log('No results found. Database empty?');
 		                }
 	                });
 	            });

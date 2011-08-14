@@ -1,12 +1,26 @@
 CACHE MANIFEST
+# 2011-08-14:v0.81
 
 #syle
 css/i.css
+css/add2home.css
 
 #javascript
+js/jquery-1.6.2.min.js
+js/latlon.js
 js/iscroll.js
+js/add2home.js
+js/freelib.js
 
 #images
-assets/ui_elements.png 
+assets/ui_elements.png
+assets/ui_elements@x2.png
 assets/fiber_bg.png
+assets/apple-touch-icon.png
+assets/touch-icon-ipad.png
 
+#pages
+index.html
+
+NETWORK:
+http://query.yahooapis.com

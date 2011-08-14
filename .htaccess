@@ -3,3 +3,8 @@ Options -Indexes
 
 # OPTION DU CACHING EN HTML5
 AddType text/cache-manifest .manifest
+
+<Files freelib.manifest>
+	ExpiresActive On
+	ExpiresDefault "access"
+</Files>
