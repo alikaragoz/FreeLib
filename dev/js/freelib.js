@@ -95,7 +95,6 @@ var freelib = (function() {
             	db.transaction(function(tx) {
 	                var i = 0
 	                $(map).each(function() {
-						console.log('Hello World!');
 	                    tx.executeSql('INSERT INTO map (id, address, bonus, fullAddress, lat, lng, name, number, open) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [i, this.address, this.bonus, this.fullAddress, this.lat, this.lng, this.name, this.number, this.open]);
 	                    i++;
 	                });
@@ -223,7 +222,7 @@ var freelib = (function() {
 	                function(tx, results) {
 	                    if(results.rows && results.rows.length) {
 		
-							$("#scroller").text('');
+							$("#search-wrapper #scroller").text('');
 							
 							// Our flag to know if there are available stations
 							var	stationsAround = 0;
@@ -251,14 +250,13 @@ var freelib = (function() {
 							else {
 								// We sor the stations by the closest first
 								stations.sort();
-								
 								// Adding the elements in the list
 								$.each(stations, function() {
-									$("#scroller").append($('<li id="' + this[1]['number'] + '"><div class="location"><div class="adresse"><span id="velib_id">à ' + Math.round(this[0]*1000) + 'm</span>' + this[1]['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></li>'));
+									$("#search-wrapper #scroller").append($('<li id="' + this[1]['number'] + '"><div class="location"><div class="adresse"><span id="velib_id">à ' + Math.round(this[0]*1000) + 'm</span>' + this[1]['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></li>'));
 								});
 								
 								// Refreh the scroller with the new elements
-								myScroll.refresh();
+								searchScroll.refresh();
 								
 								// Asynchronous update of the stations status
 								getStationsStatus(stations.sort());
@@ -299,12 +297,46 @@ var freelib = (function() {
 		});
 	}
 	
+	function showView (view) {
+		if (view == 'favs') {
+			$("#fav-wrapper").css({'z-index': '2'});
+			$("#search_box_bg").css({'z-index': '1'});
+			$("#middle").animate(
+				{'top': '51px'}, 
+				{duration: 400, specialEasing: { width: 'linear', height: 'easeInOut'}});
+			$("#cursor").animate(
+				{'margin-left': '5px'}, 
+				{duration: 200, specialEasing: { width: 'linear', height: 'easeInOut'}});
+				
+		};
+		if (view == 'search') {
+			$("#search-wrapper").css({'z-index': '2'});
+			$("#search_box_bg").css({'z-index': '3'});
+			$("#middle").animate(
+				{'top': -($(window).height()-204) + 'px'}, 
+				{duration: 400, specialEasing: { width: 'linear', height: 'easeInOut'}});
+			$("#cursor").animate(
+				{'margin-left': '85px'}, 
+				{duration: 200, specialEasing: { width: 'linear', height: 'easeInOut'}});
+		}
+		if (view == 'info') {
+			$("#info-wrapper").css({'z-index': '2'});
+			$("#middle").animate(
+				{'top': -($(window).height()-152)*2 + 'px'}, 
+				{duration: 400, specialEasing: { width: 'linear', height: 'easeInOut'}});
+			$("#cursor").animate(
+				{'margin-left': '165px'}, 
+				{duration: 200, specialEasing: { width: 'linear', height: 'easeInOut'}});
+		};
+	}
+	
     return {
 		init: init,
         reset: resetDB,
         getMap: getMap,
         searchStation: searchStation,
 		geolocate: geolocate,
-		getStationsStatus: getStationsStatus
+		getStationsStatus: getStationsStatus,
+		showView: showView
     };
 })();

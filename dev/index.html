@@ -31,10 +31,19 @@ var searchScroll;
 
 function loaded() {
 	setTimeout(function () {
-		//favScroll = new iScroll('fav-wrapper');
-		//searchScroll = new iScroll('search-wrapper');
+		favScroll = new iScroll('fav-wrapper',{ scrollbarClass: 'myScrollbar' });
+		searchScroll = new iScroll('search-wrapper', { scrollbarClass: 'myScrollbar' });
 	}, 200);
+	$('#fav-wrapper').height($(window).height()-101);
+	$('#search-wrapper').height($(window).height()-154);
 }
+
+$(window).resize(function() 
+{
+	$('#fav-wrapper').height($(window).height()-101);
+	$('#search-wrapper').height($(window).height()-154);
+});
+
 window.addEventListener('load', loaded, false);
 
 freelib.init();
@@ -55,21 +64,32 @@ freelib.getMap();
 		</div>
 	</div>
 </div>
-
-<div id="fav-wrapper">
-	<div id="content">Favoris</div>
-	<ul id="scroller"></ul>
-</div>
-<div id="search-wrapper">
-	<div id="content">Search</div>
-	<ul id="scroller"></ul>
+<div id="middle">
+	<div id="fav-wrapper">
+		<ul id="scroller">
+			<li>elements</li>
+			<li>elements</li>
+			<li>elements</li>
+			<li>elements</li>
+			<li>elements</li>
+			<li>elements</li>
+			<li>elements</li>
+			<li>elements</li>
+			<li>elements</li>
+			<li>elements</li>
+			<li>elements</li>
+		</ul>
+	</div>
+	<div id="search-wrapper">
+		<ul id="scroller"></ul>
+	</div>
 </div>
 <div id="footer">
 	 <ul>
 		<li id="cursor"></li>
-	 	<li id="favs"></li>
-		<li id="search"></li>
-		<li id="info"></li>
+	 	<li id="favs" onclick="freelib.showView('favs');"></li>
+		<li id="search" onclick="freelib.showView('search');"></li>
+		<li id="info" onclick="freelib.showView('info');"></li>
 	 </ul>
 </div>
 </body>

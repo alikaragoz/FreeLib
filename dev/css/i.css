@@ -26,7 +26,7 @@ body {
 */
 
 #header {
-	position:absolute; z-index:2;
+	position:absolute; z-index:3;
 	top:0; left:0;
 	width:100%;
 	height:49px;
@@ -77,7 +77,7 @@ body {
 
 #footer	{
 	position: absolute;
-	z-index: 2;
+	z-index: 3;
 	bottom: 0;
 	left: 0;
 	width: 100%;
@@ -134,28 +134,39 @@ body {
 	Content
 */
 
+#middle {
+	overflow: hidden;
+	position: absolute;
+	top: 51px;
+	bottom: 50px;
+	width: 100%;
+}
+
 #fav-wrapper {
-	position:absolute; 
-	z-index:1;
-	top:51px; bottom:0; left:0;
+	display: block;
+	z-index: 1;
 	width:100%;
 	background-image:url(../assets/fiber_bg.png);
-	overflow:auto
+	position: relative;
+	overflow: auto;
 }
 
 #search-wrapper {
-	position:relative; 
-	z-index:1;
-	top:51px; bottom:0; left:0;
+	display: block;
+	z-index: 1;
 	width:100%;
 	background-image:url(../assets/fiber_bg.png);
-	overflow:auto
+	overflow: auto;
+}
+
+#search-wrapper #scroller {
+	
 }
 
 /* Scroller */
 
 #scroller {
-/*	position:absolute; */
+	position:absolute; 
 	z-index:1;
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 	width:100%;
@@ -408,10 +419,9 @@ body {
 	position: absolute;
 }
 
-
 /* Content when empty */
 
-#content {
+/*#content {
 	width: 100%;
 	height : 100%;
 	display: -webkit-box;
@@ -423,18 +433,16 @@ body {
 	color: rgba(255,255,255,0.19);
 	text-shadow: 0px -1px 0px #010101;
 }
-
+*/
 /* Search box */
 
 #search_box_bg {
 	height: 52px;
 	top: 51px;
-	z-index: 100;
 	position: relative;
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.35);
 	background-image:url(../assets/fiber_bg.png);
-	display: none;
 	z-index: 1;
 }
 
@@ -521,17 +529,3 @@ ul#search_results li {
 		background-size: 128px;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
