@@ -270,7 +270,7 @@ var freelib = (function() {
 							}
 	                    }
 						else {
-		                    console.log('error occurred trying to open DB');
+		                    console.log('No results found.');
 		                }
 	                });
 	            });
