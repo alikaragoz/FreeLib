@@ -16,24 +16,15 @@
 <style type="text/css">@import url(css/i.css);</style>
 <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="application/javascript" src="js/iscroll.js"></script>
+<script type="application/javascript" src="js/latlon.js"></script>
 <script type="application/javascript" src="js/freelib.js"></script>
 <script type="text/javascript">
-var myScroll;
 
-function loaded() {
-	setTimeout(function () {
-		myScroll = new iScroll('wrapper');
-	}, 100);
-}
-
-window.addEventListener('load', loaded, false);
 freelib.init();
 //freelib.reset();
-freelib.getMap();
+//freelib.getMap();
 
-$(window).load(function(){
-	freelib.searchStation()
-});
+
 </script>
 <title>FreeLib’</title>
 </head>
@@ -44,12 +35,13 @@ $(window).load(function(){
 <div id="search_box_bg">
 	<div id="search_box">
 		<div id="search_shape">
+			<div id="geolocate" onclick="freelib.geolocate();"></div>
 			<input type="text" id="search" />
 		</div>
 	</div>
 </div>
 <div id="wrapper">
-	<ul id="search_results"></ul>
+	<ul id="scroller"></ul>
 </div>
 </body>
 </html>
