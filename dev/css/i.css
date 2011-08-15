@@ -524,7 +524,8 @@ ul#search_results li {
 	}
 	
 	body,
-	#wrapper,
+	#search-wrapper,
+	#fav-wrapper,
 	#search_box_bg {
 		background-image:url(../assets/fiber_bg.png);	
 		background-size: 128px;
