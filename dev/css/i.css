@@ -21,6 +21,10 @@ body {
 	clear: left;
 }
 
+* {
+	-webkit-backface-visibility: hidden;
+}
+
 /*
 	Common : Header
 */
@@ -419,9 +423,20 @@ body {
 	position: absolute;
 }
 
+#scroller .add {
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	background-image: url(../assets/ui_elements.png);
+	background-position: -9px -715px;
+	display: block;
+	right: 11px;
+	top: 37px;
+}
+
 /* Content when empty */
 
-/*#content {
+#content {
 	width: 100%;
 	height : 100%;
 	display: -webkit-box;
@@ -432,8 +447,9 @@ body {
 	font-size: 42px;
 	color: rgba(255,255,255,0.19);
 	text-shadow: 0px -1px 0px #010101;
+	display: none;
 }
-*/
+
 /* Search box */
 
 #search_box_bg {
@@ -517,6 +533,7 @@ ul#search_results li {
 	#footer	#favs,
 	#footer	#search,
 	#footer	#info,
+	#scroller .add,
 	#scroller .velib_status .velib_num .sign,
 	#scroller .velib_status .parks_num .sign {
 		background-image: url(../assets/ui_elements@x2.png);
