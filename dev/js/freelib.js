@@ -26,11 +26,9 @@ var freelib = (function() {
 	
 	// Initialisation function
 	function init () {
-		// For more accurate positionning 
-		//geoWatcher();
-		
 		// We check if the database already exists
 		initDb();
+		checkMapUpdate();
 	}
  	
 	// Database initialisation
@@ -39,7 +37,10 @@ var freelib = (function() {
             if (window.openDatabase) {
                 db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
                 if (db) {
-                    db.transaction(function(tx) {
+					db.transaction(function(tx) {
+						tx.executeSql("CREATE TABLE IF NOT EXISTS prefs (id REAL UNIQUE, favoris TEXT, lastVisit DATE)", [], function() {});
+					});
+					db.transaction(function(tx) {
                         tx.executeSql("CREATE TABLE IF NOT EXISTS map (id REAL UNIQUE, address TEXT, bonus INT, fullAddress TEXT, lat FLOAT, lng FLOAT, name TEXT, number INT, open INT)", [],
                         function(tx, result) {});
                     });
@@ -59,8 +60,8 @@ var freelib = (function() {
         if (window.openDatabase) {
             db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
             db.transaction(function(tx) {
-                tx.executeSql('DROP TABLE IF EXISTS map', [],
-                function() {});
+                tx.executeSql('DROP TABLE IF EXISTS map', [], function() {});
+				tx.executeSql('DROP TABLE IF EXISTS prefs', [], function() {});
             });
         }
 		else {
@@ -108,7 +109,58 @@ var freelib = (function() {
             console.log('An error occurred while loading the map');
         }
     }
+	
+	function checkMapUpdate() {
+		db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
+        db.transaction(function(tx) {
+            tx.executeSql('SELECT * FROM prefs', [],
+            function(tx, results) {
 
+				if(results.rows && !results.rows.length) {
+					updateLastVisit();
+					getMap();
+                }
+				else {
+					
+					var currentTime = new Date();
+					var month = currentTime.getMonth() + 1;
+					var day = currentTime.getDate();
+					var year = currentTime.getFullYear();
+					
+					lastTime = results.rows.item(0)['lastVisit'];
+					
+					var thisTime = month + '/' + day + '/' + year;
+					
+					// We retirve the number of days since last visit
+					var numDays = (Date.parse(thisTime) - Date.parse(lastTime)) / 1000 / 3600 / 24;
+					
+					// We check every week for new station
+					if (numDays >= 7) { 
+						resetDB();
+						initDb();
+						updateLastVisit();
+						getMap();
+					};
+					
+				}	
+            });
+        });
+	}
+	
+	function updateLastVisit() {
+		var currentTime = new Date();
+		var month = currentTime.getMonth() + 1;
+		var day = currentTime.getDate();
+		var year = currentTime.getFullYear();
+		
+		var thisTime = month + '/' + day + '/' + year;
+		
+		db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
+        db.transaction(function(tx) {
+			tx.executeSql('INSERT INTO prefs (id, favoris, lastVisit) values (?, ?, ?)', [1, '', thisTime], function(){});
+		});
+	}
+	
     function searchStation() {
         $("#search").keyup(function(e) {
             search(e);
@@ -163,16 +215,16 @@ var freelib = (function() {
 			function (error) {
 				switch(error.code) {
 					case error.TIMEOUT:
-						alert ('Timeout');
+						alert ('Delai dépassé');
 						break;
 					case error.POSITION_UNAVAILABLE:
-						alert ('Position unavailable');
+						alert ('Position non disponible');
 						break;
 					case error.PERMISSION_DENIED:
-						alert ('Permission denied');
+						alert ('Permission non accordée');
 						break;
 					case error.UNKNOWN_ERROR:
-						alert ('Unknown error');
+						alert ('Erreur inconnue');
 						break;
 				}
 			},
@@ -193,16 +245,16 @@ var freelib = (function() {
 			function (error) {
 				switch(error.code) {
 					case error.TIMEOUT:
-						alert ('Timeout');
+						alert('Delai dépassé');
 						break;
 					case error.POSITION_UNAVAILABLE:
-						alert ('Position unavailable');
+						alert('Position non disponible');
 						break;
 					case error.PERMISSION_DENIED:
-						alert ('Permission denied');
+						alert('Permission non accordée');
 						break;
 					case error.UNKNOWN_ERROR:
-						alert ('Unknown error');
+						alert('Erreur inconnuer');
 						break;
 				}
 			},	
@@ -299,31 +351,37 @@ var freelib = (function() {
 	
 	function showView (view) {
 		if (view == 'favs') {
+			// Stopping the position watcher
+			if (navigator.geolocation) {
+				navigator.geolocation.clearWatch(geoWatch);
+			}
+			else{
+				console.log('Browser not supported.');
+			}
+			
 			$("#fav-wrapper").css({'z-index': '2'});
-			$("#search_box_bg").css({'z-index': '1'});
-			$("#middle").animate(
-				{'top': '51px'}, 
-				{duration: 400, specialEasing: { width: 'linear', height: 'easeInOut'}});
+			$("#search_box_bg").css({'z-index': '1', 'display': 'none'});			
+			$("#middle").css({'top': '51px'});
 			$("#cursor").animate(
 				{'margin-left': '5px'}, 
 				{duration: 200, specialEasing: { width: 'linear', height: 'easeInOut'}});
 				
 		};
 		if (view == 'search') {
+			// For more accurate positionning 
+			geoWatcher();
+			
+			
 			$("#search-wrapper").css({'z-index': '2'});
-			$("#search_box_bg").css({'z-index': '3'});
-			$("#middle").animate(
-				{'top': -($(window).height()-204) + 'px'}, 
-				{duration: 400, specialEasing: { width: 'linear', height: 'easeInOut'}});
+			$("#search_box_bg").css({'z-index': '3', 'display': 'block'});
+			$("#middle").css({'top': -($(window).height()-204) + 'px'});
 			$("#cursor").animate(
 				{'margin-left': '85px'}, 
 				{duration: 200, specialEasing: { width: 'linear', height: 'easeInOut'}});
 		}
 		if (view == 'info') {
 			$("#info-wrapper").css({'z-index': '2'});
-			$("#middle").animate(
-				{'top': -($(window).height()-152)*2 + 'px'}, 
-				{duration: 400, specialEasing: { width: 'linear', height: 'easeInOut'}});
+			$("#middle").css({'top': -($(window).height()-152)*2 + 'px'});
 			$("#cursor").animate(
 				{'margin-left': '165px'}, 
 				{duration: 200, specialEasing: { width: 'linear', height: 'easeInOut'}});

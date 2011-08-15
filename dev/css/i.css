@@ -444,6 +444,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.35);
 	background-image:url(../assets/fiber_bg.png);
 	z-index: 1;
+	display: none;
 }
 
 
