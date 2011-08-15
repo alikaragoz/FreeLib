@@ -375,9 +375,7 @@ var freelib = (function() {
 		$("#fav-wrapper").css({'z-index': '2'});
 		$("#search_box_bg").css({'z-index': '1', 'display': 'none'});			
 		$("#middle").css({'top': '51px'});
-		$("#cursor").animate(
-			{'margin-left': '5px'}, 
-			{duration: 200, specialEasing: { width: 'linear', height: 'easeInOut'}});
+		$("#cursor").css({'margin-left': '5px'});
 		
 	}
 	
@@ -388,10 +386,9 @@ var freelib = (function() {
 		
 		$("#search-wrapper").css({'z-index': '2'});
 		$("#search_box_bg").css({'z-index': '3', 'display': 'block'});
-		$("#middle").css({'top': -($(window).height()-204) + 'px'});
-		$("#cursor").animate(
-			{'margin-left': '85px'}, 
-			{duration: 200, specialEasing: { width: 'linear', height: 'easeInOut'}});
+		$("#middle").css({'top': -($(window).height()-205) + 'px'});
+		$("#cursor").css({'margin-left': '85px'});
+				
 	}
 	
 	function showInfo() {
@@ -405,9 +402,7 @@ var freelib = (function() {
 		
 		$("#info-wrapper").css({'z-index': '2'});
 		$("#middle").css({'top': -($(window).height()-152)*2 + 'px'});
-		$("#cursor").animate(
-			{'margin-left': '165px'}, 
-			{duration: 200, specialEasing: { width: 'linear', height: 'easeInOut'}});
+		$("#cursor").css({'margin-left': '165px'});
 	}
 	
 	function addStation (stationNum) {

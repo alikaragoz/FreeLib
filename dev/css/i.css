@@ -119,6 +119,7 @@ body {
 	height: 12px;
 	width: 21px;
 	margin-left: 5px;
+	-webkit-transition: margin-left 150ms ease-in-out 150ms;
 }
 
 #footer	#favs {
