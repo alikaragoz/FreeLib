@@ -307,6 +307,8 @@ var freelib = (function() {
 								// Adding the elements in the list
 								$.each(stations, function() {
 									$("#search-wrapper #scroller").append($('<li class="' + this[1]['number'] + '"><div class="location"><div class="adresse"><span id="velib_id">à ' + Math.round(this[0]*1000) + 'm</span>' + this[1]['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div><div class="add" onclick="freelib.addStation(' + this[1]['number'] + ');"></div></li>'));
+									// Refreh the scroller with the new elements
+									searchScroll.refresh();
 								});
 								
 								// Refreh the scroller with the new elements
@@ -454,7 +456,7 @@ var freelib = (function() {
 			                tx.executeSql('SELECT * FROM map WHERE number=?', [stationItem], function(tx, results) {
 									if(results.rows && results.rows.length) {
 										// We fill the list
-										$("#fav-wrapper #scroller").append($('<li class="' + results.rows.item(0)['number'] + '"><div class="location"><div class="adresse"><span id="velib_id">' + results.rows.item(0)['number'] + '</span>' + results.rows.item(0)['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></li>'));
+										$("#fav-wrapper #scroller").append($('<li class="' + results.rows.item(0)['number'] + '"><div id="station_top" onclick="freelib.showOptions(' + results.rows.item(0)['number'] + ');"><div class="location"><div class="adresse"><span id="velib_id">' + results.rows.item(0)['number'] + '</span>' + results.rows.item(0)['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></div><div class="options"><div id="opt_refresh" onclick="freelib.refresh(' + results.rows.item(0)['number'] + ');"></div><div id="opt_del" onclick="freelib.del(' + results.rows.item(0)['number'] + ');"></div><div id="opt_up" onclick="freelib.up(' + results.rows.item(0)['number'] + ');"></div><div id="opt_down" onclick="freelib.down(' + results.rows.item(0)['number'] + ');"></div></li>'));
 										
 										// Refreh the scroller with the new elements
 										setTimeout(function () {
@@ -482,6 +484,38 @@ var freelib = (function() {
 		});
 	}
 	
+	function showOptions(station) {
+		$.each($('#fav-wrapper li'), function() {
+			if ($(this).height() == 160) {
+				$('#fav-wrapper li').css({'height' : '90px'});
+				$('.' + station + '.options').css({'display' : 'none'});
+			};
+		})
+		
+		if ($('.' + station + ' .options').css('display') == 'block') {
+			$('#fav-wrapper .' + station).css({'height' : '90px'});
+			$('.' + station + ' .options').css({'display' : 'none'})
+			
+		} else {
+			$('#fav-wrapper .' + station).css({'height' : '160px'});
+			$('.' + station + ' .options').css({'display' : 'block'});
+		}
+		favScroll.refresh();
+	}
+	
+	function refresh () {
+		console.log('refresh World!');
+	}
+	function del () {
+		console.log('del World!');
+	}
+	function up () {
+		console.log('up World!');
+	}
+	function down () {
+		console.log('down World!');
+	}
+	
     return {
 		init: init,
         reset: resetDB,
@@ -490,6 +524,11 @@ var freelib = (function() {
 		geolocate: geolocate,
 		getStationsStatus: getStationsStatus,
 		showView: showView,
-		addStation: addStation
+		addStation: addStation,
+		showOptions: showOptions,
+		refresh: refresh,
+		del: del,
+		up: up,
+		down: down
     };
 })();

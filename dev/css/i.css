@@ -15,14 +15,11 @@ body {
 	font-family:"Helvetica Neue";
 	-webkit-box-sizing: border-box;
 	background-image:url(../assets/fiber_bg.png);
+	overflow: hidden;
 }
 
 .clr {
 	clear: left;
-}
-
-* {
-	-webkit-backface-visibility: hidden;
 }
 
 /*
@@ -85,7 +82,7 @@ body {
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 48px;
+	height: 49px;
 	background-color: #222;
 	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #4a515f), color-stop(1, #282c32));
 	-webkit-box-shadow: 0 3px 9px rgba(0,0,0,6);
@@ -190,10 +187,13 @@ body {
 	border-bottom:1px solid #fff;
 	font-size:14px;
 	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #fff), color-stop(1, #e7e7e7));
-/*	-webkit-box-shadow: 0px 1px 3px #d3d3d3;*/
 	-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 2px 5px rgba(0, 0, 0, 0.3e) inset, 0px 0px 0 rgba(0, 0, 0, 0), 0px 0px 0 rgba(0, 0, 0, 0);
 	position: relative;
 	height: 90px;
+	-webkit-backface-visibility: hidden;
+}
+
+#fav-wrapper #scroller li {
 }
 
 #scroller li .dist {
@@ -435,6 +435,42 @@ body {
 	top: 37px;
 }
 
+#scroller .options {
+	height: 70px;
+	-webkit-box-shadow: 0px 0px 12px rgba(0,0,0,0.5) inset;
+	background-image: url(../assets/fiber_bg.png);
+	margin-top: 1px;
+	display: none;
+}
+
+#scroller #opt_refresh,
+#scroller #opt_del,
+#scroller #opt_up,
+#scroller #opt_down {
+	float: left;
+	width: 25%;
+	height: 69px;
+	position: absolute;
+	background-image: url(../assets/ui_elements.png);
+	background-repeat: no-repeat;
+}
+
+#scroller #opt_refresh {
+	background-position: center -949px;
+}
+#scroller #opt_del {
+	left: 25%;
+	background-position: center -891px;
+}
+#scroller #opt_up {
+	left: 50%;
+	background-position: center -829px;
+}
+#scroller #opt_down {
+	left: 75%;
+	background-position: center -764px;
+}
+
 /* Content when empty */
 
 #content {
@@ -454,7 +490,7 @@ body {
 /* Search box */
 
 #search_box_bg {
-	height: 52px;
+	height: 53px;
 	top: 51px;
 	position: relative;
 	width: 100%;
@@ -524,9 +560,20 @@ ul#search_results li {
 	-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 2px 5px rgba(0, 0, 0, 0.3) inset, 0px 0px 0 rgba(0, 0, 0, 0), 0px 0px 0 rgba(0, 0, 0, 0);
 }
 
+@media only screen and (max-device-width: 480px) {
+	#scroller li {
+		-webkit-backface-visibility: visible;
+	}
+	
+	#fav-wrapper #scroller li {
+		-webkit-transition: none;
+	}
+}
+
 /* Retina display css */
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+	
 	#header #title,
 	#search_box #geolocate,
 	#search_box #search_shape,
@@ -535,6 +582,10 @@ ul#search_results li {
 	#footer	#search,
 	#footer	#info,
 	#scroller .add,
+	#scroller #opt_refresh,
+	#scroller #opt_del,
+	#scroller #opt_up,
+	#scroller #opt_down,
 	#scroller .velib_status .velib_num .sign,
 	#scroller .velib_status .parks_num .sign {
 		background-image: url(../assets/ui_elements@x2.png);
@@ -544,8 +595,13 @@ ul#search_results li {
 	body,
 	#search-wrapper,
 	#fav-wrapper,
+	#scroller #options,
 	#search_box_bg {
 		background-image:url(../assets/fiber_bg.png);	
 		background-size: 128px;
+	}
+	
+	#scroller li {
+		-webkit-backface-visibility: hidden;
 	}
 }
