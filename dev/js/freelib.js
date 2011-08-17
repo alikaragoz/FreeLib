@@ -62,7 +62,8 @@ var freelib = (function() {
             db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
             db.transaction(function(tx) {
                 tx.executeSql('DROP TABLE IF EXISTS map', [], function() {});
-				tx.executeSql('DROP TABLE IF EXISTS prefs', [], function() {});
+				//TODO : Ne pas reset les preferences!
+				//tx.executeSql('DROP TABLE IF EXISTS prefs', [], function() {});
             });
         }
 		else {
