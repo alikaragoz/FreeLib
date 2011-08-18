@@ -14,7 +14,7 @@ body {
     -webkit-text-size-adjust:none;
 	font-family:"Helvetica Neue";
 	-webkit-box-sizing: border-box;
-	background-image:url(../assets/fiber_bg.png);
+	background-image:url('../assets/main_bg_ui.png');
 	overflow: hidden;
 }
 
@@ -22,6 +22,7 @@ body {
 	clear: left;
 }
 
+/* Prevent the grey color when tapped on touch clients */
 * {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
@@ -49,9 +50,9 @@ body {
 #header #title {
 	height: 50px;
 	width: 60px;
-	background-image: url(../assets/ui_elements.png);
+	background-image: url('../assets/logo_ui.png');
 	background-repeat: no-repeat;
-	background-position: 0px 4px;
+	background-position: center center;
 	left: 10px;
 	margin: 0 auto;
 }
@@ -110,31 +111,32 @@ body {
 	float: left;
 	width: 30px;
 	height: 30px;
-	background-image: url(../assets/ui_elements.png);
+	background-position: center center;
 	background-repeat: no-repeat;
 }
 
 #footer #cursor {
-	background-position: -18px -683px;
-	margin-top: -22px;
+	margin-top: -19px;
 	height: 12px;
 	width: 21px;
 	margin-left: 5px;
 	-webkit-transition: margin-left 150ms ease-in-out 150ms;
+	background-image: url('../assets/row_nav_ui.png');
+	background-position: center center;
 }
 
 #footer	#favs {
-	background-position: -13px -503px;
+	background-image: url('../assets/fav_nav_ui.png');
 }
 
 #footer	#search {
+	background-image: url('../assets/search_nav_ui.png');
 	margin-left: 50px;
-	margin-right: 50px;
-	background-position: -13px -566px;
+	margin-right: 50px; 
 }
 
 #footer	#info {
-	background-position: -13px -626px;
+	background-image: url('../assets/info_nav_ui.png');
 }
 /*
 	Content
@@ -152,7 +154,7 @@ body {
 	display: block;
 	z-index: 1;
 	width:100%;
-	background-image:url(../assets/fiber_bg.png);
+	background-image:url('../assets/main_bg_ui.png');
 	position: relative;
 	overflow: auto;
 }
@@ -161,7 +163,7 @@ body {
 	display: block;
 	z-index: 1;
 	width:100%;
-	background-image:url(../assets/fiber_bg.png);
+	background-image:url('../assets/main_bg_ui.png');
 	overflow: auto;
 }
 
@@ -247,9 +249,9 @@ body {
 	height: 50px;
 	width: 55px;
 	float: left;
-	background-image: url(../assets/ui_elements.png);
+	background-image: url('../assets/green_bike_ui.png');
 	background-repeat: no-repeat;
-	background-position: 0 -67px;
+	background-position: center -17px;
 }
 
 #scroller .velib_status .velib_num .flip:before {
@@ -337,9 +339,9 @@ body {
 	height: 50px;
 	width: 55px;
 	float: left;
-	background-image: url(../assets/ui_elements.png);
+	background-image: url('../assets/green_park_ui.png');
 	background-repeat: no-repeat;
-	background-position: 0px -125px;
+	background-position: center -16px;
 	text-indent: 21px;
 	line-height: 44px;
 	font-size: 22px;
@@ -432,8 +434,8 @@ body {
 	position: absolute;
 	height: 40px;
 	width: 40px;
-	background-image: url(../assets/ui_elements.png);
-	background-position: -9px -715px;
+	background-image: url('../assets/add_ui.png');
+	background-position: center -15px;
 	display: block;
 	right: 11px;
 	top: 37px;
@@ -442,7 +444,7 @@ body {
 #scroller .options {
 	height: 70px;
 	-webkit-box-shadow: 0px 0px 12px rgba(0,0,0,0.5) inset;
-	background-image: url(../assets/fiber_bg.png);
+	background-image: url('../assets/main_bg_ui.png');
 	margin-top: 1px;
 	display: none;
 }
@@ -455,24 +457,27 @@ body {
 	width: 25%;
 	height: 69px;
 	position: absolute;
-	background-image: url(../assets/ui_elements.png);
 	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 #scroller #opt_refresh {
-	background-position: center -949px;
+	background-image: url('../assets/refresh_ui.png');
 }
+
 #scroller #opt_del {
+	background-image: url('../assets/del_ui.png');
 	left: 25%;
-	background-position: center -891px;
 }
+
 #scroller #opt_up {
+	background-image: url('../assets/up_ui.png');
 	left: 50%;
-	background-position: center -829px;
 }
+
 #scroller #opt_down {
+	background-image: url('../assets/down_ui.png');
 	left: 75%;
-	background-position: center -764px;
 }
 
 /* Content when empty */
@@ -499,7 +504,7 @@ body {
 	position: relative;
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.35);
-	background-image:url(../assets/fiber_bg.png);
+	background-image:url('../assets/main_bg_ui.png');
 	z-index: 1;
 	display: none;
 }
@@ -525,8 +530,8 @@ body {
 	-webkit-box-shadow: inset 0 0 4px 4px rgba(0,0,0,0.5);
 	margin: 0 10px;
 	height: 29px;
-	background-image: url(../assets/ui_elements.png);
-	background-position: -7px -386px;
+	background-image: url('../assets/search_field_ui.png');
+	background-position: -20px center;
 	background-repeat: no-repeat;
 }
 
@@ -536,9 +541,9 @@ body {
 	position: absolute;
 	right: 1px;
 	top: 1px;
-	background-image: url(../assets/ui_elements.png);
+	background-image: url('../assets/geoloc_field_ui.png');
 	background-repeat: no-repeat;
-	background-position: 1px -433px;
+	background-position: -12px -12px;
 	display: block;
 }
 
@@ -578,6 +583,62 @@ ul#search_results li {
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
 	
+	#header #title { 
+		background-image: url('../assets/logo_ui@x2.png');
+	}
+	
+	#scroller .velib_status .velib_num .sign {
+		background-image: url('../assets/green_bike_ui@x2.png');
+	}
+	
+	#scroller .velib_status .parks_num .sign {
+		background-image: url('../assets/green_park_ui@x2.png');
+	}
+	
+	#scroller .add {
+		background-image: url('../assets/add_ui@x2.png');
+	}
+	
+	#scroller #opt_refresh {
+		background-image: url('../assets/refresh_ui@x2.png');
+	}
+
+	#scroller #opt_del {
+		background-image: url('../assets/del_ui@x2.png');
+	}
+
+	#scroller #opt_up {
+		background-image: url('../assets/up_ui@x2.png');
+	}
+
+	#scroller #opt_down {
+		background-image: url('../assets/down_ui@x2.png');
+	}
+	
+	#search_box #search_shape {
+		background-image: url('../assets/search_field_ui@x2.png');
+	}
+	
+	#search_box #geolocate {
+		background-image: url('../assets/geoloc_field_ui@x2.png');
+	}
+	
+	#footer #cursor {
+		background-image: url('../assets/row_nav_ui@x2.png');
+	}
+
+	#footer	#favs {
+		background-image: url('../assets/fav_nav_ui@x2.png');
+	}
+
+	#footer	#search {
+		background-image: url('../assets/search_nav_ui@x2.png');
+	}
+
+	#footer	#info {
+		background-image: url('../assets/info_nav_ui@x2.png');
+	}
+	
 	#header #title,
 	#search_box #geolocate,
 	#search_box #search_shape,
@@ -592,8 +653,7 @@ ul#search_results li {
 	#scroller #opt_down,
 	#scroller .velib_status .velib_num .sign,
 	#scroller .velib_status .parks_num .sign {
-		background-image: url(../assets/ui_elements@x2.png);
-		background-size: 59px;
+		background-size: 75px;
 	}
 	
 	body,
@@ -601,7 +661,7 @@ ul#search_results li {
 	#fav-wrapper,
 	#scroller #options,
 	#search_box_bg {
-		background-image:url(../assets/fiber_bg.png);	
+		background-image:url('../assets/main_bg_ui.png');	
 		background-size: 128px;
 	}
 	
