@@ -22,6 +22,10 @@ body {
 	clear: left;
 }
 
+* {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
 /*
 	Common : Header
 */
