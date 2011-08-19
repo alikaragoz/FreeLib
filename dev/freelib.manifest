@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2011-08-19:v0.850
+# 2011-08-19:v0.853
 
 CACHE:
 #syle
@@ -49,6 +49,9 @@ assets/logo_ui@x2.png
 assets/apple-touch-icon.png
 assets/touch-icon-ipad.png
 assets/main_bg_ui.png
+assets/ios_splash_ui.png
+assets/ios_splash_ui@phd.png
+assets/ios_splash_ui@lhd.png
 
 NETWORK:
 http://www.google-analytics.com
