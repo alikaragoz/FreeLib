@@ -13,8 +13,7 @@ body {
 	-webkit-user-select:none;
     -webkit-text-size-adjust:none;
 	font-family:"Helvetica Neue";
-	-webkit-box-sizing: border-box;
-	background-image:url('../assets/main_bg_ui.png');
+	background-color: #3e3f43;
 	overflow: hidden;
 }
 
@@ -656,7 +655,6 @@ ul#search_results li {
 		background-size: 75px;
 	}
 	
-	body,
 	#search-wrapper,
 	#fav-wrapper,
 	#scroller #options,
