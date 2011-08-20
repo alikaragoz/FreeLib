@@ -49,7 +49,7 @@ body {
 #header #title {
 	height: 50px;
 	width: 60px;
-	background-image: url('../assets/logo_ui.png');
+	background-image: url('../assets/compressed/logo_ui.png');
 	background-repeat: no-repeat;
 	background-position: center center;
 	left: 10px;
@@ -121,22 +121,22 @@ body {
 	margin-left: 5px;
 	-webkit-transform: translate3d(0,0,0);
 	-webkit-transition: margin-left 150ms ease-in-out;
-	background-image: url('../assets/row_nav_ui.png');
+	background-image: url('../assets/compressed/row_nav_ui.png');
 	background-position: center center;
 }
 
 #footer	#favs {
-	background-image: url('../assets/fav_nav_ui.png');
+	background-image: url('../assets/compressed/fav_nav_ui.png');
 }
 
 #footer	#search {
-	background-image: url('../assets/search_nav_ui.png');
+	background-image: url('../assets/compressed/search_nav_ui.png');
 	margin-left: 50px;
 	margin-right: 50px; 
 }
 
 #footer	#info {
-	background-image: url('../assets/info_nav_ui.png');
+	background-image: url('../assets/compressed/info_nav_ui.png');
 }
 /*
 	Content
@@ -154,7 +154,7 @@ body {
 	display: block;
 	z-index: 1;
 	width:100%;
-	background-image:url('../assets/main_bg_ui.png');
+	background-image:url('../assets/compressed/main_bg_ui.png');
 	position: relative;
 	overflow: auto;
 }
@@ -163,7 +163,7 @@ body {
 	display: block;
 	z-index: 1;
 	width:100%;
-	background-image:url('../assets/main_bg_ui.png');
+	background-image:url('../assets/compressed/main_bg_ui.png');
 	overflow: auto;
 }
 
@@ -248,7 +248,7 @@ body {
 	height: 50px;
 	width: 55px;
 	float: left;
-	background-image: url('../assets/green_bike_ui.png');
+	background-image: url('../assets/compressed/green_bike_ui.png');
 	background-repeat: no-repeat;
 	background-position: center -17px;
 }
@@ -338,7 +338,7 @@ body {
 	height: 50px;
 	width: 55px;
 	float: left;
-	background-image: url('../assets/green_park_ui.png');
+	background-image: url('../assets/compressed/green_park_ui.png');
 	background-repeat: no-repeat;
 	background-position: center -16px;
 	text-indent: 21px;
@@ -433,7 +433,7 @@ body {
 	position: absolute;
 	height: 40px;
 	width: 40px;
-	background-image: url('../assets/add_ui.png');
+	background-image: url('../assets/compressed/add_ui.png');
 	background-position: center -15px;
 	display: block;
 	right: 11px;
@@ -443,7 +443,7 @@ body {
 #scroller .options {
 	height: 70px;
 	-webkit-box-shadow: 0px 0px 12px rgba(0,0,0,0.5) inset;
-	background-image: url('../assets/main_bg_ui.png');
+	background-image: url('../assets/compressed/main_bg_ui.png');
 	margin-top: 1px;
 	display: none;
 }
@@ -461,21 +461,21 @@ body {
 }
 
 #scroller #opt_refresh {
-	background-image: url('../assets/refresh_ui.png');
+	background-image: url('../assets/compressed/refresh_ui.png');
 }
 
 #scroller #opt_del {
-	background-image: url('../assets/del_ui.png');
+	background-image: url('../assets/compressed/del_ui.png');
 	left: 25%;
 }
 
 #scroller #opt_up {
-	background-image: url('../assets/up_ui.png');
+	background-image: url('../assets/compressed/up_ui.png');
 	left: 50%;
 }
 
 #scroller #opt_down {
-	background-image: url('../assets/down_ui.png');
+	background-image: url('../assets/compressed/down_ui.png');
 	left: 75%;
 }
 
@@ -503,7 +503,7 @@ body {
 	position: relative;
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.35);
-	background-image:url('../assets/main_bg_ui.png');
+	background-image:url('../assets/compressed/main_bg_ui.png');
 	z-index: 1;
 	display: none;
 }
@@ -529,7 +529,7 @@ body {
 	-webkit-box-shadow: inset 0 0 4px 4px rgba(0,0,0,0.5);
 	margin: 0 10px;
 	height: 29px;
-	background-image: url('../assets/search_field_ui.png');
+	background-image: url('../assets/compressed/search_field_ui.png');
 	background-position: -20px center;
 	background-repeat: no-repeat;
 }
@@ -540,7 +540,7 @@ body {
 	position: absolute;
 	right: 1px;
 	top: 1px;
-	background-image: url('../assets/geoloc_field_ui.png');
+	background-image: url('../assets/compressed/geoloc_field_ui.png');
 	background-repeat: no-repeat;
 	background-position: -12px -12px;
 	display: block;
@@ -583,59 +583,59 @@ ul#search_results li {
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
 	
 	#header #title { 
-		background-image: url('../assets/logo_ui@x2.png');
+		background-image: url('../assets/compressed/logo_ui@x2.png');
 	}
 	
 	#scroller .velib_status .velib_num .sign {
-		background-image: url('../assets/green_bike_ui@x2.png');
+		background-image: url('../assets/compressed/green_bike_ui@x2.png');
 	}
 	
 	#scroller .velib_status .parks_num .sign {
-		background-image: url('../assets/green_park_ui@x2.png');
+		background-image: url('../assets/compressed/green_park_ui@x2.png');
 	}
 	
 	#scroller .add {
-		background-image: url('../assets/add_ui@x2.png');
+		background-image: url('../assets/compressed/add_ui@x2.png');
 	}
 	
 	#scroller #opt_refresh {
-		background-image: url('../assets/refresh_ui@x2.png');
+		background-image: url('../assets/compressed/refresh_ui@x2.png');
 	}
 
 	#scroller #opt_del {
-		background-image: url('../assets/del_ui@x2.png');
+		background-image: url('../assets/compressed/del_ui@x2.png');
 	}
 
 	#scroller #opt_up {
-		background-image: url('../assets/up_ui@x2.png');
+		background-image: url('../assets/compressed/up_ui@x2.png');
 	}
 
 	#scroller #opt_down {
-		background-image: url('../assets/down_ui@x2.png');
+		background-image: url('../assets/compressed/down_ui@x2.png');
 	}
 	
 	#search_box #search_shape {
-		background-image: url('../assets/search_field_ui@x2.png');
+		background-image: url('../assets/compressed/search_field_ui@x2.png');
 	}
 	
 	#search_box #geolocate {
-		background-image: url('../assets/geoloc_field_ui@x2.png');
+		background-image: url('../assets/compressed/geoloc_field_ui@x2.png');
 	}
 	
 	#footer #cursor {
-		background-image: url('../assets/row_nav_ui@x2.png');
+		background-image: url('../assets/compressed/row_nav_ui@x2.png');
 	}
 
 	#footer	#favs {
-		background-image: url('../assets/fav_nav_ui@x2.png');
+		background-image: url('../assets/compressed/fav_nav_ui@x2.png');
 	}
 
 	#footer	#search {
-		background-image: url('../assets/search_nav_ui@x2.png');
+		background-image: url('../assets/compressed/search_nav_ui@x2.png');
 	}
 
 	#footer	#info {
-		background-image: url('../assets/info_nav_ui@x2.png');
+		background-image: url('../assets/compressed/info_nav_ui@x2.png');
 	}
 	
 	#header #title,
@@ -659,7 +659,7 @@ ul#search_results li {
 	#fav-wrapper,
 	#scroller #options,
 	#search_box_bg {
-		background-image:url('../assets/main_bg_ui.png');	
+		background-image:url('../assets/compressed/main_bg_ui.png');	
 		background-size: 128px;
 	}
 }
