@@ -52,6 +52,7 @@
 <!-- JS -->
 
 <script type="application/javascript" src="js/jquery-1.6.2.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
 <script type="application/javascript" src="js/iscroll.min.js"></script>
 <script type="application/javascript" src="js/add2home.min.js"></script>
 <script type="application/javascript" src="js/latlon.min.js"></script>
@@ -65,6 +66,7 @@ function loaded() {
 	setTimeout(function () {
 		favScroll = new iScroll('fav-wrapper',{ scrollbarClass: 'myScrollbar' });
 		searchScroll = new iScroll('search-wrapper', { scrollbarClass: 'myScrollbar' });
+		freelib.init();
 	}, 200);
 	$('#fav-wrapper').height($(window).height()-101);
 	$('#search-wrapper').height($(window).height()-154);
@@ -78,7 +80,6 @@ $(window).resize(function()
 
 window.addEventListener('load', loaded, false);
 
-freelib.init();
 
 </script>
 

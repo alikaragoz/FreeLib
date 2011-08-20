@@ -29,7 +29,8 @@ var freelib = (function() {
 		// We check if the database already exists
 		initDb();
 		checkMapUpdate();
-		updateFavorites();
+		updateFavoriteStations();
+		searchStationNear();
 	}
  	
 	// Database initialisation
@@ -164,48 +165,29 @@ var freelib = (function() {
 		});
 	}
 	
-    function searchStation() {
-        $("#search").keyup(function(e) {
-            search(e);
-        }).bind("paste",
-        function(e) {
-            setTimeout(function() {
-                search(e);
-            },
-            100);
-        }).bind('keypress', 
+    function searchStationNear() {
+        $("#search").bind('keypress', 
 		function(e) {
 			if(e.keyCode == 13) {
+				// Stopping the position watcher
+				if (navigator.geolocation) {
+					navigator.geolocation.clearWatch(geoWatch);
+				}
+				else{
+					console.log('Browser not supported.');
+				}
 				search(e);
 			}
 		});
 
         function search(event) {
             if($("#search").val().length > 0) {
-				dbQuery($("#search").val());
+				searchLocation($("#search").val());
 			}
 			else {
 				$("#search_results").text("Pas de résultat");
 			}
-        }
-		
-		function dbQuery(string) {
-			db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
-            db.transaction(function(tx) {
-                tx.executeSql('SELECT * FROM map WHERE fullAddress LIKE "%' + string + '%" OR number LIKE "%' + string + '%"', [],
-                function(tx, results) {
-                    if(results.rows && results.rows.length) {
-                        $("#search_results").text("");
-                        for (i = 0; i < results.rows.length; i++) {
-                            $("#search_results").append('<li>' + results.rows.item(i)['fullAddress'] + '</li>');
-                        }
-                    }
-                    else{
-                        $("#search_results").text("");
-                    }
-                });
-            });
-		} 
+        } 
     }
 	
 	function geoWatcher() {
@@ -267,70 +249,84 @@ var freelib = (function() {
 		else {
 			alert("La geolocalisation ne semble pas être supportée par votre navigateur");
 		}
-		
-		function searchPosition (currentPosition) {
-			if (window.openDatabase) {
-				db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
-	            db.transaction(function(tx) {
-					// Selecting all the row of the map table
-	                tx.executeSql('SELECT * FROM map', [],
-	                function(tx, results) {
-	                    if(results.rows && results.rows.length) {
-		
-							$("#search-wrapper #scroller").text('');
+	}
+	
+	function searchPosition (point) {
+		if (window.openDatabase) {
+			db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
+            db.transaction(function(tx) {
+				// Selecting all the row of the map table
+                tx.executeSql('SELECT * FROM map', [],
+                function(tx, results) {
+                    if(results.rows && results.rows.length) {
+	
+						$("#search-wrapper #scroller").text('');
+						
+						// Our flag to know if there are available stations
+						var	stationsAround = 0;
+						
+						// The array witch will be transmitted to the getStationStatus function which retrives the stations status.
+						var stations = new Array();
+						
+						// We go through all the stations
+                        for (i = 0; i < results.rows.length; i++) {
+							// Getting the position of the GPS
+							var stationPosition = new LatLon(results.rows.item(i)['lat'], results.rows.item(i)['lng']);
 							
-							// Our flag to know if there are available stations
-							var	stationsAround = 0;
-							
-							// The array witch will be transmitted to the getStationStatus function which retrives the stations status.
-							var stations = new Array();
-							
-							// We go through all the stations
-	                        for (i = 0; i < results.rows.length; i++) {
-								// Getting the position of the GPS
-								var stationPosition = new LatLon(results.rows.item(i)['lat'], results.rows.item(i)['lng']);
+							// If the station is in a permieter of 500m we keep it
+							if (point.distanceTo(stationPosition) <= dist) {
+								stationsAround++;
 								
-								// If the station is in a permieter of 500m we keep it
-								if (currentPosition.distanceTo(stationPosition) <= dist) {
-									stationsAround++;
-									
-									// We fill the unsorted array
-									stations.push([currentPosition.distanceTo(stationPosition),results.rows.item(i)]);
-								};			
-	                        }
-							// TODO : faire le style + <li> diff
-							if (stationsAround == 0) {
-								 $("#scroller").text("Aucune station à moins de 500m");
-							}
-							else {
-								// We sor the stations by the closest first
-								stations.sort();
-								// Adding the elements in the list
-								$.each(stations, function() {
-									$("#search-wrapper #scroller").append($('<li class="' + this[1]['number'] + '"><div class="location"><div class="adresse"><span id="velib_id">à ' + Math.round(this[0]*1000) + 'm</span>' + this[1]['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div><div class="add" onclick="freelib.addStation(' + this[1]['number'] + ');"></div></li>'));
-									// Refreh the scroller with the new elements
-									searchScroll.refresh();
-								});
+								// We fill the unsorted array
+								stations.push([point.distanceTo(stationPosition),results.rows.item(i)]);
+							};			
+                        }
+						// TODO : faire le style + <li> diff
+						if (stationsAround == 0) {
+							 $("#scroller").text("Aucune station à moins de 500m");
+						}
+						else {
+							// We sor the stations by the closest first
+							stations.sort();
+							// Adding the elements in the list
+							$.each(stations, function() {
 								
+								// We are usinge escape to avoid single quotes problems
+								$("#search-wrapper #scroller").append('<li class="' + this[1]['number'] + '"><div class="location"><div class="adresse"><span id="velib_id">à ' + Math.round(this[0]*1000) + 'm</span>' + this[1]['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign1"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign2">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div><div class="add" onclick="freelib.addStation(' + this[1]['number'] + ',\'' + escape(this[1]['fullAddress']) +'\');"></div></li>');
 								// Refreh the scroller with the new elements
 								searchScroll.refresh();
-								
-								// Asynchronous update of the stations status
-								getStationsStatus(stations.sort());
-								
-								// We continue to look for the users position
-								geoWatcher();
-							}
-	                    }
-						else {
-		                    console.log('No results found. Database empty?');
-		                }
-	                });
-	            });
-			} else {
-				 console.log('Web Databases not supported');
-			}
+							});
+							
+							// Refreh the scroller with the new elements
+							searchScroll.refresh();
+							
+							// Asynchronous update of the stations status
+							getStationsStatus(stations.sort());
+							
+							// We continue to look for the users position
+							geoWatcher();
+						}
+                    }
+					else {
+	                    console.log('No results found. Database empty?');
+	                }
+                });
+            });
+		} else {
+			 console.log('Web Databases not supported');
 		}
+	}
+	
+	function searchLocation (address) {
+		geocoder = new google.maps.Geocoder();
+		geocoder.geocode( { 'address': address}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				var adressPosition = new LatLon(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+				searchPosition(adressPosition);
+			} else {
+				alert("Erreur lors de la recherche: " + status);
+			}
+		});
 	}
 	
 	function getStationsStatus(stations) {
@@ -345,11 +341,26 @@ var freelib = (function() {
 	 			function(data) {
 					var available = data.query.results.station.available;
 					var free = data.query.results.station.free;
+					
+					if (available >= 5) { 
+						$('.' + station['number'] + ' .sign1').addClass('green');
+					}                                                         
+					else {                                                    
+						 $('.' + station['number'] + ' .sign1').addClass('red');
+					}                                                         
+					                                                          
+					if (free >= 5) {                                          
+						$('.' + station['number'] + ' .sign2').addClass('green'); 
+					}                                                         
+					else {                                                    
+						$('.' + station['number'] + ' .sign2').addClass('red'); 
+					}
+					
 					$('.' + station['number'] + ' .num1').text(available);
 					$('.' + station['number'] + ' .num2').text(free);
 				})
 	 			.error(function(){
-	 				console.log('Error while get the station status.');
+	 				console.log('Error while getting the station status.');
 	 			});
 		});
 	}
@@ -386,7 +397,6 @@ var freelib = (function() {
 		// For more accurate positionning 
 		geoWatcher();
 		
-		
 		$("#search-wrapper").css({'z-index': '2'});
 		$("#search_box_bg").css({'z-index': '3', 'display': 'block'});
 		$("#middle").css({'top': -($(window).height()-205) + 'px'});
@@ -399,7 +409,7 @@ var freelib = (function() {
 		if (navigator.geolocation) {
 			navigator.geolocation.clearWatch(geoWatch);
 		}
-		else{
+		else {
 			console.log('Browser not supported.');
 		}
 		
@@ -408,42 +418,64 @@ var freelib = (function() {
 		$("#cursor").css({'margin-left': '165px'});
 	}
 	
-	function addStation (stationNum) {
+	function addStation (stationNum, fullAdress) {
 		var ajouter=confirm('Ajouter la station ' + stationNum + ' à vos favoris?');
-		if (ajouter==true) {
-			addStationInDb(stationNum);
+		if (ajouter == true) {
+			if(updateFavoritesDb(stationNum, 'add') == true) {
+				addStationInDom(stationNum, unescape(fullAdress));
+				updateFavoriteStation(stationNum);
+			}
 		}
 	}
 	
-	function addStationInDb (stationNum) {
+	function updateFavoritesDb (stationNum, action) {
 		var favoris;
 		db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
         db.transaction(function(tx) {
 			tx.executeSql('SELECT * FROM prefs', [], function(tx, results) {
 				if(results.rows && results.rows.length) {
-					if (results.rows.item(0)['favoris'].search(stationNum) == -1) {
-						favoris = (results.rows.item(0)['favoris'] == '' ? stationNum.toString() : results.rows.item(0)['favoris'] + ',' + stationNum);
-						//parseStation(favoris);
+					if (results.rows.item(0)['favoris'].search(stationNum) == -1  || action == 'remove') {
+						switch(action) {
+							case 'add':
+								favoris = (results.rows.item(0)['favoris'] == '' ? stationNum.toString() : results.rows.item(0)['favoris'] + ',' + stationNum);
+								break;
+							case 'remove':
+								if (results.rows.item(0)['favoris'].split(',').length - 1 > 0) {
+									$.each(results.rows.item(0)['favoris'].split(','), function() {
+										if (this != stationNum) {
+											favoris = (favoris == null ? '': favoris + ',') + this;
+										};
+									});
+								}
+								else{
+									favoris = '';
+								}
+								break;
+						}
+						
 						db.transaction(function(tx) {
 							tx.executeSql('UPDATE prefs SET favoris=? WHERE id=1', [favoris], function(){
-								updateFavorites();
-								showFavs();
+								if(action == 'add') {
+									showFavs();
+								}
 							});
 						});
 					}
-					else {
-						alert('Cette station est déjà dans les favoris');
+					else if (action == 'add') {
+						alert('Cette station est déjà dans vos favoris');
+						return false;
 					}
 				}
 			});
 		});
+		return true;
 	}
 	
-	function parseStation (stations) {
-		console.log(stations.split(','));
+	function addStationInDom (stationId, fullAddress) {
+		$("#fav-wrapper #scroller").append($('<li class="' + stationId + '"><div id="station_top" onclick="freelib.showOptions(' + stationId + ');"><div class="location"><div class="adresse"><span id="velib_id">' + stationId + '</span>' + fullAddress + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign1"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign2">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></div><div class="options"><div id="opt_refresh" onclick="freelib.refresh(' + stationId + ');"></div><div id="opt_del" onclick="freelib.remove(' + stationId + ');"></div><div id="opt_up" onclick="freelib.up(' + stationId + ');"></div><div id="opt_down" onclick="freelib.down(' + stationId + ');"></div></li>'));
 	}
 	
-	function updateFavorites () {
+	function updateFavoriteStations () {
 		$("#fav-wrapper #scroller").html('');
 		db = openDatabase("Freelib", "1.0", "Votre velib dans la poche", 512000);
         db.transaction(function(tx) {
@@ -457,7 +489,7 @@ var freelib = (function() {
 			                tx.executeSql('SELECT * FROM map WHERE number=?', [stationItem], function(tx, results) {
 									if(results.rows && results.rows.length) {
 										// We fill the list
-										$("#fav-wrapper #scroller").append($('<li class="' + results.rows.item(0)['number'] + '"><div id="station_top" onclick="freelib.showOptions(' + results.rows.item(0)['number'] + ');"><div class="location"><div class="adresse"><span id="velib_id">' + results.rows.item(0)['number'] + '</span>' + results.rows.item(0)['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></div><div class="options"><div id="opt_refresh" onclick="freelib.refresh(' + results.rows.item(0)['number'] + ');"></div><div id="opt_del" onclick="freelib.del(' + results.rows.item(0)['number'] + ');"></div><div id="opt_up" onclick="freelib.up(' + results.rows.item(0)['number'] + ');"></div><div id="opt_down" onclick="freelib.down(' + results.rows.item(0)['number'] + ');"></div></li>'));
+										addStationInDom (results.rows.item(0)['number'], results.rows.item(0)['fullAddress']);
 										
 										// Refreh the scroller with the new elements
 										setTimeout(function () {
@@ -485,6 +517,18 @@ var freelib = (function() {
 		});
 	}
 	
+	function updateFavoriteStation (station) {
+		
+		// Clearing the actual status of the station.
+		$('#fav-wrapper .' + station + ' .num1').text('?');
+		$('#fav-wrapper .' + station + ' .num2').text('?');
+		
+		// Updating the station station.
+		var stationToUpdate = new Array();
+		stationToUpdate.push([0,{'number': station}]);
+		getStationsStatus(stationToUpdate);
+	}
+	
 	function showOptions(station) {
 		$.each($('#fav-wrapper li'), function() {
 			if ($(this).height() == 160) {
@@ -504,16 +548,23 @@ var freelib = (function() {
 		favScroll.refresh();
 	}
 	
-	function refresh () {
-		console.log('refresh World!');
+	function refresh (station) {
+		updateFavoriteStation(station);
 	}
-	function del () {
-		console.log('del World!');
+		
+	function remove (station) {
+		var remove=confirm('Êtes-vous sûr de vouloir supprimer la station ' + station + ' de vos favoris?');
+		if (remove==true) {
+			updateFavoritesDb(station, 'remove');
+			
+			// remove the element from the DOM
+			$('#fav-wrapper .' + station).remove();
+		}
 	}
-	function up () {
+	function up (station) {
 		console.log('up World!');
 	}
-	function down () {
+	function down (station) {
 		console.log('down World!');
 	}
 	
@@ -521,14 +572,13 @@ var freelib = (function() {
 		init: init,
         reset: resetDB,
         getMap: getMap,
-        searchStation: searchStation,
 		geolocate: geolocate,
 		getStationsStatus: getStationsStatus,
 		showView: showView,
 		addStation: addStation,
 		showOptions: showOptions,
 		refresh: refresh,
-		del: del,
+		remove: remove,
 		up: up,
 		down: down
     };

@@ -191,7 +191,7 @@ body {
 
 #scroller li {
 	border-bottom:1px solid #fff;
-	font-size:14px;
+	font-size:13px;
 	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #fff), color-stop(1, #e7e7e7));
 	-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 2px 5px rgba(0, 0, 0, 0.3e) inset, 0px 0px 0 rgba(0, 0, 0, 0), 0px 0px 0 rgba(0, 0, 0, 0);
 	position: relative;
@@ -221,6 +221,7 @@ body {
 	-webkit-box-orient:horizontal;
 	-webkit-box-pack:center;
 	-webkit-box-align:center;
+	overflow: hidden;
 }
 
 #scroller .location .adresse span {
@@ -229,7 +230,7 @@ body {
 	text-shadow: 0 1px 0 #BBB;
 	background-color: #DFDFDF;
 	padding: 0px 4px;
-	font-size: 14px;
+	font-size: 13px;
 	-webkit-box-shadow: -1px 0px 0px white;
 	-webkit-border-radius: 4px;
 	margin: 0 10px 0 0;
@@ -244,13 +245,22 @@ body {
 
 /* Free Velibs */
 
-#scroller .velib_status .velib_num .sign {
+#scroller .velib_status .velib_num .sign1,
+#scroller .velib_status .velib_num .sign2 {
 	height: 50px;
 	width: 55px;
 	float: left;
 	background-image: url('../assets/compressed/green_bike_ui.png');
 	background-repeat: no-repeat;
 	background-position: center -17px;
+}
+
+#scroller .velib_status .velib_num .green {
+	background-image: url('../assets/compressed/green_bike_ui.png');
+}
+
+#scroller .velib_status .velib_num .red {
+	background-image: url('../assets/compressed/red_bike_ui.png');
 }
 
 #scroller .velib_status .velib_num .flip:before {
@@ -334,7 +344,8 @@ body {
 
 /* Free Parks*/
 
-#scroller .velib_status .parks_num .sign {
+#scroller .velib_status .parks_num .sign1,
+#scroller .velib_status .parks_num .sign2 {
 	height: 50px;
 	width: 55px;
 	float: left;
@@ -346,6 +357,14 @@ body {
 	font-size: 22px;
 	font-weight: bold;
 	color: white;
+}
+
+#scroller .velib_status .parks_num .green {
+	background-image: url('../assets/compressed/green_park_ui.png');
+}
+
+#scroller .velib_status .parks_num .red {
+	background-image: url('../assets/compressed/red_park_ui.png');
 }
 
 #scroller .velib_status .parks_num .flip:before {
@@ -586,12 +605,30 @@ ul#search_results li {
 		background-image: url('../assets/compressed/logo_ui@x2.png');
 	}
 	
-	#scroller .velib_status .velib_num .sign {
+	#scroller .velib_status .velib_num .sign1,
+	#scroller .velib_status .velib_num .sign2 {
 		background-image: url('../assets/compressed/green_bike_ui@x2.png');
 	}
 	
-	#scroller .velib_status .parks_num .sign {
+	#scroller .velib_status .velib_num .green {
+		background-image: url('../assets/compressed/green_bike_ui@x2.png');
+	}
+	
+	#scroller .velib_status .velib_num .red {
+		background-image: url('../assets/compressed/red_bike_ui@x2.png');
+	}
+	
+	#scroller .velib_status .parks_num .sign1,
+	#scroller .velib_status .parks_num .sign2 {
 		background-image: url('../assets/compressed/green_park_ui@x2.png');
+	}
+	
+	#scroller .velib_status .parks_num .green {
+		background-image: url('../assets/compressed/green_park_ui@x2.png');
+	}
+
+	#scroller .velib_status .parks_num .red {
+		background-image: url('../assets/compressed/red_park_ui@x2.png');
 	}
 	
 	#scroller .add {
@@ -650,8 +687,14 @@ ul#search_results li {
 	#scroller #opt_del,
 	#scroller #opt_up,
 	#scroller #opt_down,
-	#scroller .velib_status .velib_num .sign,
-	#scroller .velib_status .parks_num .sign {
+	#scroller .velib_status .velib_num .sign1,
+	#scroller .velib_status .velib_num .sign1,
+	#scroller .velib_status .velib_num .green,
+	#scroller .velib_status .velib_num .red,
+	#scroller .velib_status .parks_num .sign1,
+	#scroller .velib_status .parks_num .sign2,
+	#scroller .velib_status .parks_num .green,
+	#scroller .velib_status .parks_num .red {
 		background-size: 75px;
 	}
 	
