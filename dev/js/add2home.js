@@ -114,7 +114,7 @@ function ready () {
 			}
 		}
 		
-		touchIcon = '<span style="background-image:url(' + (isIPad ? 'assets/touch-icon-ipad.png' : touchIcon) + ')" class="touchIcon"></span>';
+		touchIcon = '<span style="background-image:url(' + (isIPad ? 'assets/compressed/touch-icon-ipad.png' : touchIcon) + ')" class="touchIcon"></span>';
 	}
 
 	div.className = (isIPad ? 'ipad' : 'iphone') + (touchIcon ? ' wide' : '');
