@@ -190,12 +190,12 @@ body {
 }
 
 #scroller li {
-	border-bottom:1px solid #fff;
 	font-size:13px;
 	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #fff), color-stop(1, #e7e7e7));
 	-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 2px 5px rgba(0, 0, 0, 0.3e) inset, 0px 0px 0 rgba(0, 0, 0, 0), 0px 0px 0 rgba(0, 0, 0, 0);
 	position: relative;
 	height: 90px;
+	overflow: hidden;
 }
 
 #fav-wrapper #scroller li {
@@ -464,7 +464,6 @@ body {
 	-webkit-box-shadow: 0px 0px 12px rgba(0,0,0,0.5) inset;
 	background-image: url('../assets/compressed/main_bg_ui.png');
 	margin-top: 1px;
-	display: none;
 }
 
 #scroller #opt_refresh,
