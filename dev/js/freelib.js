@@ -93,7 +93,7 @@ var freelib = (function() {
     /*
     	We fill the database with the list of all the stations.
 			
-		Note : We do not use the dbQuery because we have to add to many objects at once.
+		Note : We do not use the dbQuery because we have to add too many objects at once.
     */
 
     function populateMapDB(map) {
@@ -387,10 +387,9 @@ var freelib = (function() {
 		var favoris;
 		var sqlQuery = 'SELECT * FROM prefs';
 		var sqlVariables = new Array();
-		
 		dbQuery(sqlQuery, undefined, function(tx, rs) {
 			if(rs.rows && rs.rows.length) {
-				if (rs.rows.item(0)['favoris'].search(stationNum) == -1  || action == 'remove') {
+				if (rs.rows.item(0)['favoris'].search(stationNum) == -1  || action == 'remove' || action == 'moveup' || action == 'movedown') {
 					switch(action) {
 						// Add in the favorites
 						case 'add':
@@ -409,6 +408,20 @@ var freelib = (function() {
 							else{
 								favoris = '';
 							}
+							break;
+						case 'moveup':
+							var newStationList = new Array();
+							newStationList = swap(rs.rows.item(0)['favoris'].split(',').indexOf(stationNum.toString()), rs.rows.item(0)['favoris'].split(',').indexOf(stationNum.toString())-1 ,rs.rows.item(0)['favoris'].split(','));
+							$.each(newStationList, function() {
+								favoris = (favoris == null ? '': favoris + ',') + this;
+							});
+							break;
+						case 'movedown':
+							var newStationList = new Array();
+							newStationList = swap(rs.rows.item(0)['favoris'].split(',').indexOf(stationNum.toString()), rs.rows.item(0)['favoris'].split(',').indexOf(stationNum.toString())+1 ,rs.rows.item(0)['favoris'].split(','));
+							$.each(newStationList, function() {
+								favoris = (favoris == null ? '': favoris + ',') + this;
+							});
 							break;
 					}
 					
@@ -607,6 +620,7 @@ var freelib = (function() {
 		if (prevStation != null) {
 			$('#fav-wrapper .' + station).remove();
 			$('#fav-wrapper .' + prevStation).before(currStation);
+			modifyFavorites (station, 'moveup');
 		}
 	}
 	
@@ -616,6 +630,7 @@ var freelib = (function() {
 		if (nextStation != null) {
 			$('#fav-wrapper .' + station).remove();
 			$('#fav-wrapper .' + nextStation).after(currStation);
+			modifyFavorites (station, 'movedown');
 		}
 	}
 	
@@ -638,6 +653,17 @@ var freelib = (function() {
 		} catch(e) {
 			console.log('Error occurred during DB init, Web Database supported?');
 		};
+	}
+	
+	/*
+		Function to swap 2 elements in an array.
+	*/
+	
+	function swap (a, b, list) {
+		var element = list[b];
+		list[b] = list[a];
+		list[a] = element;
+		return list;
 	}
 	
     return {
