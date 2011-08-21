@@ -55,7 +55,6 @@ var freelib = (function() {
 		
 		var sqlQuery = 'CREATE TABLE IF NOT EXISTS map (id REAL UNIQUE, address TEXT, bonus INT, fullAddress TEXT, lat FLOAT, lng FLOAT, name TEXT, number INT, open INT)';		
         dbQuery(sqlQuery);
-		
     }
    
     /*
@@ -92,26 +91,37 @@ var freelib = (function() {
     }
 
     /*
-    	We fill the database with the list of all the stations
+    	We fill the database with the list of all the stations.
+			
+		Note : We do not use the dbQuery because we have to add to many objects at once.
     */
 
     function populateMapDB(map) {
 		// If the map is not empty
 		if (map != null) {
-			var i = 0
-			var sqlQuery;		
-	        var sqlVariables = new Array();
-			$(map).each(function() {
-				sqlQuery = 'INSERT INTO map (id, address, bonus, fullAddress, lat, lng, name, number, open) values (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-				sqlVariables = [i, this.address, this.bonus, this.fullAddress, this.lat, this.lng, this.name, this.number, this.open];
-				dbQuery(sqlQuery, sqlVariables);
-				i++;
-			});
-		} else {
-			console.log('An error occurred while loading the map');
+			try {
+	            if (window.openDatabase) {
+	                db = openDatabase(databaseName, databaseVersion, databaseDesc, databaseMaxSize);
+	                if (db) {
+						db.transaction(function(tx) {
+							var i = 0
+							$(map).each(function() {
+								tx.executeSql('INSERT INTO map (id, address, bonus, fullAddress, lat, lng, name, number, open) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [i, this.address, this.bonus, this.fullAddress, this.lat, this.lng, this.name, this.number, this.open]);
+								i++;
+							});
+						});
+					} else {
+						console.log('Error occurred while trying to open the DB');
+					};
+				} else {
+					console.log('Web Databases not supported');
+				};
+			} catch(e) {
+				console.log('Error occurred during DB init, Web Database supported?');
+			};
 		}
 	}
-    
+	
 	/*
 		Check if 7 days passed to download the new map
 		
@@ -123,7 +133,7 @@ var freelib = (function() {
 	function checkMapUpdate() {
 		var sqlQuery = 'SELECT * FROM prefs';
 		
-		dbQuery(sqlQuery, 'undefined', function(tx, rs) {
+		dbQuery(sqlQuery, undefined, function(tx, rs) {
 			if(rs.rows && !rs.rows.length) {
 				updateLastVisit();
 				getMap();
@@ -267,7 +277,7 @@ var freelib = (function() {
 	function searchPosition(pos) {
 		position = pos;
 		var sqlQuery = 'SELECT * FROM map';
-		dbQuery(sqlQuery, 'undefined', function(tx, rs) {
+		dbQuery(sqlQuery, undefined, function(tx, rs) {
 			if(rs.rows && rs.rows.length) {
 
 				// Cleaning the list before adding new ones
@@ -378,7 +388,7 @@ var freelib = (function() {
 		var sqlQuery = 'SELECT * FROM prefs';
 		var sqlVariables = new Array();
 		
-		dbQuery(sqlQuery, 'undefined', function(tx, rs) {
+		dbQuery(sqlQuery, undefined, function(tx, rs) {
 			if(rs.rows && rs.rows.length) {
 				if (rs.rows.item(0)['favoris'].search(stationNum) == -1  || action == 'remove') {
 					switch(action) {
@@ -438,7 +448,7 @@ var freelib = (function() {
 		var sqlQuery = 'SELECT * FROM prefs';
 		var sqlVariables = new Array();
 		
-		dbQuery(sqlQuery, 'undefined', function (tx, rs) {
+		dbQuery(sqlQuery, undefined, function (tx, rs) {
 			if(rs.rows && rs.rows.length) {
 				$.each(rs.rows.item(0)['favoris'].split(','), function() {
 					var stationItem = this
@@ -617,7 +627,7 @@ var freelib = (function() {
                 db = openDatabase(databaseName, databaseVersion, databaseDesc, databaseMaxSize);
                 if (db) {
 					db.transaction(function(tx) {
-						tx.executeSql(sqlQuery, (sqlVariables != 'undefined' ? sqlVariables : []), (callback != 'undefined' ? callback : null));
+						tx.executeSql(sqlQuery, (sqlVariables != undefined ? sqlVariables : []), (callback != undefined ? callback : function(){}));
 					});
 				} else {
 					console.log('Error occurred while trying to open the DB');
