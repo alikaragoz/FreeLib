@@ -50,11 +50,12 @@ var freelib = (function() {
 	*/	
 	
 	function initDb() {
+		sqlQuery = 'CREATE TABLE IF NOT EXISTS prefs (id REAL UNIQUE, favoris LONGTEXT, lastVisit DATE)';		
+        dbQuery(sqlQuery);
+		
 		var sqlQuery = 'CREATE TABLE IF NOT EXISTS map (id REAL UNIQUE, address TEXT, bonus INT, fullAddress TEXT, lat FLOAT, lng FLOAT, name TEXT, number INT, open INT)';		
         dbQuery(sqlQuery);
 		
-		sqlQuery = 'CREATE TABLE IF NOT EXISTS prefs (id REAL UNIQUE, favoris LONGTEXT, lastVisit DATE)';		
-        dbQuery(sqlQuery);
     }
    
     /*
@@ -66,8 +67,8 @@ var freelib = (function() {
 		var sqlQuery = 'DROP TABLE IF EXISTS map';		
         dbQuery(sqlQuery);
 		
-		//sqlQuery = 'DROP TABLE IF EXISTS prefs';
-		//dbQuery(sqlQuery);
+		sqlQuery = 'DROP TABLE IF EXISTS prefs';
+		dbQuery(sqlQuery);
 	}
 
     /*
@@ -481,7 +482,6 @@ var freelib = (function() {
 		updateStationsStatus(stationToUpdate);
 	}
 	
-	
 	/*
 		Navigation through the different views 
 	*/
@@ -553,20 +553,25 @@ var freelib = (function() {
 	
 	function showOptions(station) {
 		$.each($('#fav-wrapper li'), function() {
-			if ($(this).height() == 160) {
-				$('#fav-wrapper li').css({'height' : '90px'});
-				$('.' + station + '.options').css({'display' : 'none'});
-			};
-		})
-		
-		if ($('.' + station + ' .options').css('display') == 'block') {
-			$('#fav-wrapper .' + station).css({'height' : '90px'});
-			$('.' + station + ' .options').css({'display' : 'none'})
+			if ($(this).height() == 160 && $(this).attr('class') == station) {
+				$('#fav-wrapper li.' + station).css({'height' : '90px'});
+			} else if($(this).height() == 90 && $(this).attr('class') == station) {
+				$('#fav-wrapper li.' + station).css({'height' : '160px'});
+			} else {
+				$(this).css({'height' : '90px'});
+			}
 			
+		});
+		
+		/*
+		if ($('#fav-wrapper li.' + station).height() == 160) {
+			console.log('Hello World!');
+			$('#fav-wrapper li.' + station).css({'height' : '90px'});
 		} else {
-			$('#fav-wrapper .' + station).css({'height' : '160px'});
-			$('.' + station + ' .options').css({'display' : 'block'});
+			$('#fav-wrapper li.' + station).css({'height' : '160px'});
 		}
+		*/
+		
 		favScroll.refresh();
 	}
 	
@@ -584,12 +589,24 @@ var freelib = (function() {
 		}
 	}
 	
+	
+	
 	function up (station) {
-		console.log('up World!');
+		var currStation = $('#fav-wrapper .' + station);
+		var prevStation = $('#fav-wrapper .' + station).prev().attr('class');
+		if (prevStation != null) {
+			$('#fav-wrapper .' + station).remove();
+			$('#fav-wrapper .' + prevStation).before(currStation);
+		}
 	}
 	
 	function down (station) {
-		console.log('down World!');
+		var currStation = $('#fav-wrapper .' + station);
+		var nextStation = $('#fav-wrapper .' + station).next().attr('class');
+		if (nextStation != null) {
+			$('#fav-wrapper .' + station).remove();
+			$('#fav-wrapper .' + nextStation).after(currStation);
+		}
 	}
 	
 	/* Utils */
