@@ -576,24 +576,15 @@ var freelib = (function() {
 	
 	function showOptions(station) {
 		$.each($('#fav-wrapper li'), function() {
-			if ($(this).height() == 160 && $(this).attr('class') == station) {
+			if ($(this).height() == 140 && $(this).attr('class') == station) {
 				$('#fav-wrapper li.' + station).css({'height' : '90px'});
 			} else if($(this).height() == 90 && $(this).attr('class') == station) {
-				$('#fav-wrapper li.' + station).css({'height' : '160px'});
+				$('#fav-wrapper li.' + station).css({'height' : '140px'});
 			} else {
 				$(this).css({'height' : '90px'});
 			}
 			
 		});
-		
-		/*
-		if ($('#fav-wrapper li.' + station).height() == 160) {
-			console.log('Hello World!');
-			$('#fav-wrapper li.' + station).css({'height' : '90px'});
-		} else {
-			$('#fav-wrapper li.' + station).css({'height' : '160px'});
-		}
-		*/
 		
 		favScroll.refresh();
 	}
