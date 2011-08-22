@@ -314,7 +314,7 @@ var freelib = (function() {
 					$.each(stations, function() {
 
 						// We are usinge escape to avoid single quotes problems
-						$("#search-wrapper #scroller").append('<li class="' + this[1]['number'] + '"><div class="location"><div class="adresse"><span id="velib_id">à ' + Math.round(this[0]*1000) + 'm</span>' + this[1]['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign1"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign2">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div><div class="add" onclick="freelib.addStation(' + this[1]['number'] + ',\'' + escape(this[1]['fullAddress']) +'\');"></div></li>');
+						$("#search-wrapper #scroller").append('<li class="' + this[1]['number'] + '"><div id="station_top" onclick="freelib.showOptions(' + this[1]['number'] + ', \'search-wrapper\');"><div class="location"><div class="adresse"><span id="velib_id">à ' + Math.round(this[0]*1000) + 'm</span>' + this[1]['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign1"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign2">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></div><div class="options"><div id="opt_refreshs"  onclick="freelib.refresh(' + this[1]['number'] + ', \'search-wrapper\');"></div><div id="opt_map" onclick="freelib.openMap(\'http://maps.google.com/maps?daddr=' + this[1]['lat'] + ',' + this[1]['lng'] + '&saddr=' + pos._lat + ',' + pos._lon + '&dirflg=w&t=m&z=18\')"></div><div id="opt_add" onclick="freelib.addStation(' + this[1]['number'] + ',\'' + escape(this[1]['fullAddress']) +'\');"></div></div></li>');
 
 						// Refreh the scroller with the new elements
 						searchScroll.refresh();
@@ -431,7 +431,7 @@ var freelib = (function() {
 					dbQuery(sqlQuery, sqlVariables, function(tx, rs) {
 						if(action == 'add') {
 							addStationInDom(stationNum, unescape(fullAddress));
-							updateFavoriteStation(stationNum);
+							updateFavoriteStation(stationNum, 'fav-scroller');
 							showFavs();
 						}
 					});
@@ -448,7 +448,7 @@ var freelib = (function() {
 	*/
 	
 	function addStationInDom (stationId, fullAddress) {
-		$("#fav-wrapper #scroller").append($('<li class="' + stationId + '"><div id="station_top" onclick="freelib.showOptions(' + stationId + ');"><div class="location"><div class="adresse"><span id="velib_id">' + stationId + '</span>' + fullAddress + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign1"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign2">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></div><div class="options"><div id="opt_refresh" onclick="freelib.refresh(' + stationId + ');"></div><div id="opt_del" onclick="freelib.remove(' + stationId + ');"></div><div id="opt_up" onclick="freelib.up(' + stationId + ');"></div><div id="opt_down" onclick="freelib.down(' + stationId + ');"></div></li>'));
+		$("#fav-wrapper #scroller").append($('<li class="' + stationId + '"><div id="station_top" onclick="freelib.showOptions(' + stationId + ', \'fav-wrapper\');"><div class="location"><div class="adresse"><span id="velib_id">' + stationId + '</span>' + fullAddress + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign1"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign2">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></div><div class="options"><div id="opt_refreshf" onclick="freelib.refresh(' + stationId + ', \'fav-wrapper\');"></div><div id="opt_del" onclick="freelib.remove(' + stationId + ');"></div><div id="opt_up" onclick="freelib.up(' + stationId + ');"></div><div id="opt_down" onclick="freelib.down(' + stationId + ');"></div></li>'));
 	}
 	
 	/*
@@ -475,7 +475,7 @@ var freelib = (function() {
 							addStationInDom (results.rows.item(0)['number'], results.rows.item(0)['fullAddress']);
 
 							// We retrive the status of each station
-							updateFavoriteStation(results.rows.item(0)['number']);
+							updateFavoriteStation(results.rows.item(0)['number'], 'fav-scroller');
 
 							// Refreh the scroller with the new elements
 							favScroll.refresh();					
@@ -493,11 +493,11 @@ var freelib = (function() {
 		});
 	}
 	
-	function updateFavoriteStation (station) {
+	function updateFavoriteStation (station, section) {
 		
 		// Clearing the actual status of the station.
-		$('#fav-wrapper .' + station + ' .num1').text('?');
-		$('#fav-wrapper .' + station + ' .num2').text('?');
+		$('#' + section + ' .' + station + ' .num1').text('?');
+		$('#' + section + ' .' + station + ' .num2').text('?');
 		
 		// Updating the station station.
 		var stationToUpdate = new Array();
@@ -574,23 +574,22 @@ var freelib = (function() {
 		}
 	}
 	
-	function showOptions(station) {
-		$.each($('#fav-wrapper li'), function() {
+	function showOptions(station, section) {
+		$.each($('#' + section + ' li'), function() {
 			if ($(this).height() == 140 && $(this).attr('class') == station) {
-				$('#fav-wrapper li.' + station).css({'height' : '90px'});
+				$('#' + section + ' li.' + station).css({'height' : '90px'});
 			} else if($(this).height() == 90 && $(this).attr('class') == station) {
-				$('#fav-wrapper li.' + station).css({'height' : '140px'});
+				$('#' + section + ' li.' + station).css({'height' : '140px'});
 			} else {
 				$(this).css({'height' : '90px'});
-			}
-			
+			}	
 		});
 		
 		favScroll.refresh();
 	}
 	
-	function refresh (station) {
-		updateFavoriteStation(station);
+	function refresh (station, section) {
+		updateFavoriteStation(station, section);
 	}
 		
 	function remove (station) {
@@ -602,8 +601,6 @@ var freelib = (function() {
 			$('#fav-wrapper .' + station).remove();
 		}
 	}
-	
-	
 	
 	function up (station) {
 		var currStation = $('#fav-wrapper .' + station);
@@ -623,6 +620,10 @@ var freelib = (function() {
 			$('#fav-wrapper .' + nextStation).after(currStation);
 			modifyFavorites (station, 'movedown');
 		}
+	}
+	
+	function openMap (link) {
+		window.open(link)
 	}
 	
 	/* Utils */
@@ -668,6 +669,7 @@ var freelib = (function() {
 		refresh: refresh,
 		remove: remove,
 		up: up,
-		down: down
+		down: down,
+		openMap: openMap
     };
 })();

@@ -461,15 +461,18 @@ body {
 
 #scroller .options {
 	height: 50px;
-	-webkit-box-shadow: 0px 0px 12px rgba(0,0,0,0.5) inset;
-	background-image: url('../assets/compressed/main_bg_ui.png');
+	-webkit-box-shadow: 0px 0px 7px rgba(0,0,0,0.3) inset;
+	background-image: url('../assets/compressed/submenu_bg_ui.png');
 	margin-top: 1px;
 }
 
-#scroller #opt_refresh,
+#scroller #opt_refreshf,
+#scroller #opt_refreshs,
 #scroller #opt_del,
 #scroller #opt_up,
-#scroller #opt_down {
+#scroller #opt_down,
+#scroller #opt_add,
+#scroller #opt_map {
 	float: left;
 	width: 25%;
 	height: 50px;
@@ -478,8 +481,19 @@ body {
 	background-position: center center;
 }
 
-#scroller #opt_refresh {
+#scroller #opt_refreshs,
+#scroller #opt_add,
+#scroller #opt_map {
+	width: 33.3%;
+}
+
+#scroller #opt_refreshf {
 	background-image: url('../assets/compressed/refresh_ui.png');
+}
+
+#scroller #opt_add {
+	background-image: url('../assets/compressed/add_ui.png');
+	left: 66.6%;
 }
 
 #scroller #opt_del {
@@ -487,9 +501,18 @@ body {
 	left: 25%;
 }
 
+#scroller #opt_map {
+	background-image: url('../assets/compressed/map_ui.png');
+	left: 33.3%;
+}
+
 #scroller #opt_up {
 	background-image: url('../assets/compressed/up_ui.png');
 	left: 50%;
+}
+
+#scroller #opt_refreshs {
+	background-image: url('../assets/compressed/refresh_ui.png');
 }
 
 #scroller #opt_down {
@@ -634,7 +657,8 @@ ul#search_results li {
 		background-image: url('../assets/compressed/add_ui@x2.png');
 	}
 	
-	#scroller #opt_refresh {
+	#scroller #opt_refreshf,
+	#scroller #opt_refreshs {
 		background-image: url('../assets/compressed/refresh_ui@x2.png');
 	}
 
@@ -648,6 +672,15 @@ ul#search_results li {
 
 	#scroller #opt_down {
 		background-image: url('../assets/compressed/down_ui@x2.png');
+	}
+
+	#scroller #opt_add {
+		background-image: url('../assets/compressed/add_ui@x2.png');
+	}
+
+	#scroller #opt_map {
+		background-image: url('../assets/compressed/map_ui@x2.png');
+		left: 33.3%;
 	}
 	
 	#search_box #search_shape {
@@ -682,10 +715,13 @@ ul#search_results li {
 	#footer	#search,
 	#footer	#info,
 	#scroller .add,
-	#scroller #opt_refresh,
+	#scroller #opt_refreshf,
 	#scroller #opt_del,
 	#scroller #opt_up,
 	#scroller #opt_down,
+	#scroller #opt_refreshs,
+	#scroller #opt_add,
+	#scroller #opt_map,
 	#scroller .velib_status .velib_num .sign1,
 	#scroller .velib_status .velib_num .sign1,
 	#scroller .velib_status .velib_num .green,
@@ -699,9 +735,12 @@ ul#search_results li {
 	
 	#search-wrapper,
 	#fav-wrapper,
-	#scroller #options,
 	#search_box_bg {
 		background-image:url('../assets/compressed/main_bg_ui.png');	
 		background-size: 128px;
+	}
+	
+	#scroller #options {
+		background-size: 4px;
 	}
 }
