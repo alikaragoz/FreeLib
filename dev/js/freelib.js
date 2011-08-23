@@ -29,6 +29,8 @@ var freelib = (function() {
 	var databaseDesc = "Votre velib dans la poche";
 	var databaseMaxSize = 512000;
 	
+	var section = 'favs';
+	
 	
 	/* 
 		Initialisation function 
@@ -43,6 +45,7 @@ var freelib = (function() {
 		
 		// At startup we update the list of favs
 		updateFavoriteStations();
+		
 	}
 
 	/* 
@@ -496,7 +499,7 @@ var freelib = (function() {
 		// Updating the station station.
 		var stationToUpdate = new Array();
 		stationToUpdate.push([0,{'number': station}]);
-		updateStationsStatus(stationToUpdate, 'fav-wrapper');
+		updateStationsStatus(stationToUpdate, section);
 	}
 	
 	/*
@@ -504,6 +507,7 @@ var freelib = (function() {
 	*/
 	
 	function showView (view) {
+		section = view;
 		switch(view) {
 			case 'favs':
 				showFavs();
@@ -578,6 +582,7 @@ var freelib = (function() {
 		});
 		
 		favScroll.refresh();
+		searchScroll.refresh();
 	}
 	
 	function refresh (station, section) {
@@ -648,6 +653,15 @@ var freelib = (function() {
 		list[b] = list[a];
 		list[a] = element;
 		return list;
+	}
+	
+	window.onresize = function() {
+		$('#fav-wrapper').css('height', window.innerHeight-101 + 'px');
+		$('#search-wrapper').css('height', window.innerHeight-154 + 'px');
+		
+		var top = ( section == 'favs' ? 51 : ( section == 'search' ? -(window.innerHeight-205) : ( section == 'search' ? -(window.innerHeight-152)*2 : null )));
+		
+		$("#middle").css({'top': top + 'px'});
 	}
 	
     return {
