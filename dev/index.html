@@ -68,8 +68,9 @@ function loaded() {
 		searchScroll = new iScroll('search-wrapper', { scrollbarClass: 'myScrollbar' });
 		freelib.init();
 	}, 200);
-	$('#fav-wrapper').css('height', window.innerHeight-101 + 'px')
-	$('#search-wrapper').css('height', window.innerHeight-154 + 'px')
+	$('#fav-wrapper').css('height', window.innerHeight-101 + 'px');
+	$('#search-wrapper').css('height', window.innerHeight-154 + 'px');
+	$('#cosmet').css('height', window.innerHeight-101 + 'px');
 }
 
 window.addEventListener('load', loaded, false);
@@ -104,6 +105,9 @@ window.addEventListener('load', loaded, false);
 			<input type="text" id="search" />
 		</div>
 	</div>
+</div>
+<div id="cosmet">
+	
 </div>
 <div id="middle">
 	

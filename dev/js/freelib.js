@@ -30,6 +30,7 @@ var freelib = (function() {
 	var databaseMaxSize = 512000;
 	
 	var section = 'favs';
+	var numFavs = 0;
 	
 	
 	/* 
@@ -208,7 +209,7 @@ var freelib = (function() {
 				var pos = new LatLon(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 				searchPosition(pos);
 			} else {
-				alert("Erreur lors de la recherche: " + status);
+				showSplash('search');
 			}
 		});
 	}
@@ -300,10 +301,10 @@ var freelib = (function() {
 					};			
 				}
 
-				// TODO : faire le style + <li> diff
 				if (stationsAround == 0) {
-					$("#scroller").text("Aucune station à moins de 500m");
+					showSplash('search');
 				} else {
+					showSplash('none');
 					// We sor the stations by the closest first
 					stations.sort();
 					// Adding the elements in the list
@@ -392,20 +393,22 @@ var freelib = (function() {
 					switch(action) {
 						// Add in the favorites
 						case 'add':
+							numFavs = rs.rows.item(0)['favoris'].split(',').length;
 							favoris = (rs.rows.item(0)['favoris'] == '' ? stationNum.toString() : rs.rows.item(0)['favoris'] + ',' + stationNum);
 							break;
 						// Remove from favorites
 						case 'remove':
 							// if the list is not empty after removing an element
 							if (rs.rows.item(0)['favoris'].split(',').length - 1 > 0) {
-								$.each(rs.rows.item(0)['favoris'].split(','), function() {
-									if (this != stationNum) {
-										favoris = (favoris == null ? '': favoris + ',') + this;
+								rs.rows.item(0)['favoris'].split(',').forEach(function(value, index, array) {
+									if (value != stationNum) {
+										favoris = (favoris == null ? '': favoris + ',') + value;
 									};
 								});
 							}
 							else{
 								favoris = '';
+								showSplash('favs');
 							}
 							break;
 						case 'moveup':
@@ -462,30 +465,30 @@ var freelib = (function() {
 		
 		dbQuery(sqlQuery, undefined, function (tx, rs) {
 			if(rs.rows && rs.rows.length) {
-				rs.rows.item(0)['favoris'].split(',').forEach(function(value, index, array) {
-					var stationItem = value;
-					sqlQuery = 'SELECT * FROM map WHERE number=?';
-					sqlVariables = [stationItem];
-					dbQuery(sqlQuery, sqlVariables, function(tx, results) {
-						if(results.rows && results.rows.length) {
-							// We fill the list in the DOM
-							addStationInDom (results.rows.item(0)['number'], results.rows.item(0)['fullAddress']);
+				var favoritesList = rs.rows.item(0)['favoris'];
+				if (favoritesList != '') {
+					numFavs = favoritesList.length;
+					favoritesList.split(',').forEach(function(value, index, array) {
+						var stationItem = value;
+						sqlQuery = 'SELECT * FROM map WHERE number=?';
+						sqlVariables = [stationItem];
+						dbQuery(sqlQuery, sqlVariables, function(tx, results) {
+							if(results.rows && results.rows.length) {
+								// We fill the list in the DOM
+								addStationInDom (results.rows.item(0)['number'], results.rows.item(0)['fullAddress']);
 							
-							// We retrive the status of each station
-							updateFavoriteStation(results.rows.item(0)['number'], 'fav-wrapper');
+								// We retrive the status of each station
+								updateFavoriteStation(results.rows.item(0)['number'], 'fav-wrapper');
 
-							// Refreh the scroller with the new elements
-							favScroll.refresh();					
+								// Refreh the scroller with the new elements
+								favScroll.refresh();					
 
-						} else {
-							$("#content").text('Aucune station favorite');
-							$("#content").show();
-						}
+							};
+						});
 					});
-				});
-			} else {
-				$("#content").text('Aucune station favorite');
-				$("#content").show();
+				} else {
+					showSplash('favs');
+				}
 			}
 		});
 	}
@@ -534,6 +537,9 @@ var freelib = (function() {
 		$("#search_box_bg").css({'z-index': '1', 'display': 'none'});			
 		$("#middle").css({'top': '51px'});
 		$("#cursor").css({'margin-left': '5px'});
+		
+		$("#cosmet").css({'top': '51px'});
+		$('#cosmet').css('height', window.innerHeight-101 + 'px');
 	}
 	
 	function showSearch() {
@@ -542,11 +548,16 @@ var freelib = (function() {
 		
 		// Activate the search in the input box
 		searchStationNear();
+
+		showSplash('none');
 		
 		$("#search-wrapper").css({'z-index': '2'});
 		$("#search_box_bg").css({'z-index': '3', 'display': 'block'});
 		$("#middle").css({'top': -(window.innerHeight-205) + 'px'});
 		$("#cursor").css({'margin-left': '85px'});
+		
+		$("#cosmet").css({'top': '101px'});
+		$('#cosmet').css('height', window.innerHeight-154 + 'px');
 	}
 	
 	function showInfo() {
@@ -623,6 +634,27 @@ var freelib = (function() {
 		window.open(link)
 	}
 	
+	function showSplash(type) {
+		var cosmet;
+		switch(type) {
+			case 'favs' :
+				$('#cosmet').css('z-index', '5');
+				cosmet = '<ul><li class="text">Ajouter des stations</li><li class="add" onclick="freelib.showView(\'search\')"></li></ul>';
+				$('#cosmet').html(cosmet);
+				break;
+			case 'search' :
+				$('#cosmet').css('z-index', '5');
+				cosmet = '<ul><li class="text">Aucune station à moins de 500m</li></ul>';
+				$('#cosmet').html(cosmet);
+				$('#search-wrapper #scroller').html('');
+				break;
+			case 'none' :
+				$('#cosmet').css('z-index', '-1');
+				$('#cosmet').html('');
+				break;
+		}
+	}
+	
 	/* Utils */
 	
 	function dbQuery (sqlQuery, sqlVariables, callback) {
@@ -660,7 +692,8 @@ var freelib = (function() {
 		$('#search-wrapper').css('height', window.innerHeight-154 + 'px');
 		
 		var top = ( section == 'favs' ? 51 : ( section == 'search' ? -(window.innerHeight-205) : ( section == 'search' ? -(window.innerHeight-152)*2 : null )));
-		
+
+		$('#cosmet').css('height', window.innerHeight-101 + 'px');
 		$("#middle").css({'top': top + 'px'});
 	}
 	
