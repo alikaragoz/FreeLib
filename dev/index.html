@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- <html manifest="freelib.manifest"> -->
-<!-- <html> -->
+<html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
@@ -51,7 +51,7 @@
 
 <!-- JS -->
 
-<script type="application/javascript" src="js/jquery-1.6.2.min.js"></script>
+<script type="application/javascript" src="js/zepto.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
 <script type="application/javascript" src="js/iscroll.min.js"></script>
 <script type="application/javascript" src="js/add2home.min.js"></script>
@@ -68,18 +68,17 @@ function loaded() {
 		searchScroll = new iScroll('search-wrapper', { scrollbarClass: 'myScrollbar' });
 		freelib.init();
 	}, 200);
-	$('#fav-wrapper').height($(window).height()-101);
-	$('#search-wrapper').height($(window).height()-154);
+	$('#fav-wrapper').css('height', window.innerHeight-101 + 'px')
+	$('#search-wrapper').css('height', window.innerHeight-154 + 'px')
 }
 
-$(window).resize(function() 
-{
-	$('#fav-wrapper').height($(window).height()-101);
-	$('#search-wrapper').height($(window).height()-154);
-});
+// $(window).resize(function() 
+// {
+// 	$('#fav-wrapper').height(window.innerHeight-101);
+// 	$('#search-wrapper').height(window.innerHeight-154);
+// });
 
 window.addEventListener('load', loaded, false);
-
 
 </script>
 
