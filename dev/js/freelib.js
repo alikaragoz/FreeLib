@@ -481,11 +481,11 @@ var freelib = (function() {
 								updateFavoriteStation(results.rows.item(0)['number'], 'fav-wrapper');
 
 								// Refreh the scroller with the new elements
-								favScroll.refresh();					
-
+								favScroll.refresh();													
 							};
 						});
 					});
+					showSplash('none');
 				} else {
 					showSplash('favs');
 				}
