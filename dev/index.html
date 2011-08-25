@@ -53,7 +53,8 @@
 
 <script type="application/javascript" src="js/zepto.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
-<script type="application/javascript" src="js/iscroll.min.js"></script>
+<script type="application/javascript" src="js/iscroll-lite.js"></script>
+<script type="application/javascript" src="js/spin.js"></script>
 <script type="application/javascript" src="js/add2home.min.js"></script>
 <script type="application/javascript" src="js/latlon.min.js"></script>
 <script type="application/javascript" src="js/freelib.js"></script>
@@ -64,13 +65,13 @@ var searchScroll;
 
 function loaded() {
 	setTimeout(function () {
-		favScroll = new iScroll('fav-wrapper',{ scrollbarClass: 'myScrollbar' });
-		searchScroll = new iScroll('search-wrapper', { scrollbarClass: 'myScrollbar' });
+		favScroll = new iScroll('fav-wrapper',{ scrollbarClass: 'myScrollbar'});
+		searchScroll = new iScroll('search-wrapper', { scrollbarClass: 'myScrollbar'});
 		freelib.init();
 	}, 200);
 	$('#fav-wrapper').css('height', window.innerHeight-101 + 'px');
 	$('#search-wrapper').css('height', window.innerHeight-154 + 'px');
-	$('#cosmet').css('height', window.innerHeight-101 + 'px');
+	$('#cosmet').css('height', window.innerHeight-154 + 'px');
 }
 
 window.addEventListener('load', loaded, false);

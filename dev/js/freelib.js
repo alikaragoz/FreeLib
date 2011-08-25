@@ -131,7 +131,7 @@ var freelib = (function() {
 		var sqlQuery = 'SELECT * FROM prefs';
 		
 		dbQuery(sqlQuery, undefined, function(tx, rs) {
-			if(rs.rows && !rs.rows.length) {
+			if(rs.rows.length == 0) {
 				updateLastVisit();
 				getMap();
 			} else {
@@ -273,12 +273,14 @@ var freelib = (function() {
 
 	function searchPosition(pos) {
 		position = pos;
+		
+		showSplash('spin');
+		
+		console.log('Hello World!');
+		
 		var sqlQuery = 'SELECT * FROM map';
 		dbQuery(sqlQuery, undefined, function(tx, rs) {
 			if(rs.rows && rs.rows.length) {
-
-				// Cleaning the list before adding new ones
-				$("#search-wrapper #scroller").text('');
 
 				// Our flag to know if there are available stations
 				var	stationsAround = 0;
@@ -638,11 +640,13 @@ var freelib = (function() {
 		var cosmet;
 		switch(type) {
 			case 'favs' :
+				$("#fav-wrapper #scroller").html('');
 				$('#cosmet').css('z-index', '5');
 				cosmet = '<ul><li class="text">Ajouter des stations</li><li class="add" onclick="freelib.showView(\'search\')"></li></ul>';
 				$('#cosmet').html(cosmet);
 				break;
 			case 'search' :
+				$("#search-wrapper #scroller").html('');
 				$('#cosmet').css('z-index', '5');
 				cosmet = '<ul><li class="text">Aucune station à moins de 500m</li></ul>';
 				$('#cosmet').html(cosmet);
@@ -652,7 +656,30 @@ var freelib = (function() {
 				$('#cosmet').css('z-index', '-1');
 				$('#cosmet').html('');
 				break;
+			case 'spin' :
+				// Cleaning the list before adding new ones
+				$("#search-wrapper #scroller").html('');
+				$('#cosmet').css('z-index', '5');
+				$('#cosmet').html('');
+				addSpinner('cosmet');
+				break;
 		}
+	}
+	
+	function addSpinner (element) {
+		var opts = {
+		  lines: 6, // The number of lines to draw
+		  length: 20, // The length of each line
+		  width: 2, // The line thickness
+		  radius: 20, // The radius of the inner circle
+		  color: '#999', // #rbg or #rrggbb
+		  speed: 1, // Rounds per second
+		  trail: 50, // Afterglow percentage
+		  shadow: true // Whether to render a shadow
+		};
+		var target = document.getElementById(element);
+		var spinner = new Spinner(opts).spin();
+		target.appendChild(spinner.el);
 	}
 	
 	/* Utils */

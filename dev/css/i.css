@@ -148,6 +148,7 @@ body {
 	top: 51px;
 	bottom: 50px;
 	width: 100%;
+	-webkit-transform: translate3d(0,0,0);
 }
 
 #fav-wrapper {
@@ -196,6 +197,7 @@ body {
 	position: relative;
 	height: 90px;
 	overflow: hidden;
+	-webkit-transform: translate3d(0,0,0);
 }
 
 #fav-wrapper #scroller li {
@@ -543,7 +545,7 @@ body {
 }
 
 #cosmet .add {
-	background-image: url(../assets/compressed/add_home_ui.png);
+	background-image: url('../assets/compressed/add_home_ui.png');
 	background-position: center;
 	height: 80px;
 	width: 80px;
@@ -555,8 +557,8 @@ body {
 /* Search box */
 
 #search_box_bg {
-	height: 53px;
 	top: 51px;
+	height: 53px;
 	position: relative;
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.35);
@@ -626,13 +628,13 @@ ul#search_results li {
 }
 
 @media only screen and (max-device-width: 480px) {
-	#scroller li {
+/*	#scroller li {
 		-webkit-backface-visibility: visible;
 	}
 	
 	#fav-wrapper #scroller li {
 		-webkit-transition: none;
-	}
+	}*/
 }
 
 /* Retina display css */
