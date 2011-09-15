@@ -47,6 +47,9 @@ var freelib = (function() {
 		// At startup we update the list of favs
 		updateFavoriteStations();
 		
+		// Activate the search in the input box
+		searchStationNear();
+		
 	}
 
 	/* 
@@ -273,11 +276,7 @@ var freelib = (function() {
 
 	function searchPosition(pos) {
 		position = pos;
-		
 		showSplash('spin');
-		
-		console.log('Hello World!');
-		
 		var sqlQuery = 'SELECT * FROM map';
 		dbQuery(sqlQuery, undefined, function(tx, rs) {
 			if(rs.rows && rs.rows.length) {
@@ -311,9 +310,9 @@ var freelib = (function() {
 					stations.sort();
 					// Adding the elements in the list
 					
-					for (var i=0; i < stations.length; i++) {
-						var distance = stations[i][0];
-						var station = stations[i][1];
+					stations.forEach(function(value, index, array) {
+						var distance = value[0];
+						var station = value[1];
 						
 						// We are usinge escape to avoid single quotes problems
 						$("#search-wrapper #scroller").append('<li class="s' + station['number'] + '"><div id="station_top" onclick="freelib.showOptions(' + station['number'] + ', \'search-wrapper\');"><div class="location"><div class="adresse"><span id="velib_id">à ' + Math.round(distance*1000) + 'm</span>' + station['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign1"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign2">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></div><div class="options"><div id="opt_refreshs"  onclick="freelib.refresh(' + station['number'] + ', \'search-wrapper\');"></div><div id="opt_map" onclick="freelib.openMap(\'http://maps.google.com/maps?daddr=' + station['lat'] + ',' + station['lng'] + '&saddr=' + pos._lat + ',' + pos._lon + '&dirflg=w&t=m\')"></div><div id="opt_add" onclick="freelib.addStation(' + station['number'] + ',\'' + escape(station['fullAddress']) +'\');"></div></div></li>');
@@ -321,7 +320,7 @@ var freelib = (function() {
 						// Refreh the scroller with the new elements
 						searchScroll.refresh();
 						
-					};
+					});
 
 					// Refreh the scroller with the new elements
 					searchScroll.refresh();
@@ -547,9 +546,6 @@ var freelib = (function() {
 	function showSearch() {
 		// For more accurate positionning 
 		geoWatcher();
-		
-		// Activate the search in the input box
-		searchStationNear();
 
 		showSplash('none');
 		
