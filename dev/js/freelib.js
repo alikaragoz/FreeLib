@@ -4,16 +4,6 @@ var freelib = (function() {
     var map = new Array();
     var db = null;
 
-    // YQL variables
-    var yqlURL = "http://query.yahooapis.com/v1/public/yql?q=";
-    var yqlStatement = "select * from xml where url='";
-    var yqlCallBack = "'&format=json&callback=?";
-
-    // Velib service variables
-    var velibServiceURL = "http://www.velib.paris.fr/service";
-    var mapArgument = 'carto';
-    var stationStatusArgument = 'stationdetails';
-
 	// Maximum distance for geoloc : 0.5km
 	var dist = 0.5;
 	
@@ -83,10 +73,10 @@ var freelib = (function() {
 	
 	function getMap() {
         // We build the YQL URL to fetch the map on velib's service
-        var mapURL = yqlURL + encodeURIComponent(yqlStatement) + encodeURIComponent(velibServiceURL) + '/' + mapArgument + yqlCallBack;
+        var mapURL = 'velib.php/?get=map';
         var xml = new Array();
         $.getJSON(mapURL, function(data) {
-            populateMapDB(data.query.results.carto.markers.marker);
+            populateMapDB(data.markers.marker);
         });
     }
 
@@ -106,7 +96,7 @@ var freelib = (function() {
 						db.transaction(function(tx) {
 							var i = 0
 							$(map).each(function() {
-								tx.executeSql('INSERT INTO map (id, address, bonus, fullAddress, lat, lng, name, number, open) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [i, this.address, this.bonus, this.fullAddress, this.lat, this.lng, this.name, this.number, this.open]);
+								tx.executeSql('INSERT INTO map (id, address, bonus, fullAddress, lat, lng, name, number, open) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [i, this['@attributes'].address, this['@attributes'].bonus, this['@attributes'].fullAddress, this['@attributes'].lat, this['@attributes'].lng, this['@attributes'].name, this['@attributes'].number, this['@attributes'].open]);
 								i++;
 							});
 						});
@@ -346,14 +336,13 @@ var freelib = (function() {
 		stations.forEach(function(value, index, array) {
 			var station = value[1];
 			var xml = new Array();
-			// We build the YQL URL to fetch the status on velib's service
- 			var stationURL = yqlURL + encodeURIComponent(yqlStatement) + encodeURIComponent(velibServiceURL + '/' + stationStatusArgument + '/' + station['number']) + yqlCallBack;
+			var stationURL = 'velib.php/?get=' + station['number'];
+			console.log(stationURL);
 			
 			$.getJSON(stationURL, 
 				function(data) {
-					
-					var available = data.query.results.station.available;
-					var free = data.query.results.station.free;
+					var available = data.available;
+					var free = data.free;
 					
 					if (available >= 5) { 
 						$('#' + section + ' .s' + station['number'] + ' .sign1').addClass('green');
