@@ -1,3 +1,5 @@
+// TODO : Compress all the images
+
 var freelib = (function() {
 		
     // Global variables

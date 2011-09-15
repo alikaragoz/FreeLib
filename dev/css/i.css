@@ -265,84 +265,26 @@ body {
 	background-image: url('../assets/compressed/red_bike_ui.png');
 }
 
-#scroller .velib_status .velib_num .flip:before {
-	content: '';
-	display: block;
-	z-index: 200;
-	width: 2px;
-	height: 15px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	background: -webkit-gradient(linear, left top, left bottom, from(black), color-stop(.35, #424242), color-stop(.52, #363636), to(black));
-	border: 1px solid black;
-	-webkit-box-shadow: -1px -1px 0 rgba(0, 0, 0, .2), 
-						1px 1px 0 rgba(255, 255, 255, .05) inset, 
-						1px 0 10px rgba(0, 0, 0, 1), 
-						1px 1px 0 rgba(255, 255, 255, .06);
-	float: left;
-	position: relative;
-	left: 14px;
-	top: 11px;
-}
 
 #scroller .velib_status .velib_num .flip .num1,
 #scroller .velib_status .velib_num .flip .num2 {
-	width: 40px;
-	height: 40px;
+	width: 43px;
+	height: 43px;
 	overflow: hidden;
-	background: #333;
-	background: -webkit-gradient(linear, 30% top, 70% bottom, from(#383838), color-stop(.5, #111), to(#363636));
-	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .1) inset, 
-						0 1px 0 rgba(0, 0, 0, 1) inset, 
-						0 3px 0 rgba(255, 255, 255, .2) inset, 
-						0 4px 0 rgba(0, 0, 0, .75) inset, 
-						0 5px 0 rgba(255, 255, 255, .2) inset, 
-						0 -1px 0 rgba(255, 255, 255, .1) inset, 
-						0 -2px 0 black inset, 
-						0 -3px 0 rgba(255, 255, 255, .18) inset, 
-						0 -5px 0 black inset, 
-						0 -6px 0 rgba(255, 255, 255, .08) inset, 
-						0 0 30px rgba(0, 0, 0, .3) inset;
 	color: white;
 	text-align: center;
-	line-height: 0px;
-	-webkit-border-radius: 4px;
+	line-height: 43px;
 	font-size: 22px;
-	letter-spacing: 2px;
-	padding-left: 2px;
+	letter-spacing: 1px;
+	padding-left: 1.5px;
 	font-weight: bold;
 	float: left;
 	margin-left: 10px;
+	background-image: url('../assets/compressed/flip_num.png');
+	background-position: -15px -17px;
 }
 
-#scroller .velib_status .velib_num .flip .num1:before,
-#scroller .velib_status .velib_num .flip .num2:before {
-	content: '';
-	display: block;
-	z-index: 100;
-	width: 40px;
-	height: 20px;
-	background: -webkit-gradient(linear, left 80%, left bottom, from(transparent), to(rgba(0, 0, 0, .4)));
-	-webkit-box-shadow: 0 -1px 0 rgba(0, 0, 0, .2) inset, 0 1px 0 rgba(255, 255, 255, .04), 0 5px 100px rgba(255, 255, 255, .3);
-	position: relative;
-	left: -2px;
-}
 
-#scroller .velib_status .velib_num .flip .num1:after,
-#scroller .velib_status .velib_num .flip .num2:after {
-	content: '';
-	display: block;
-	z-index: 100;
-	top: -9px;
-	left: 35px;
-	width: 2px;
-	height: 15px;
-	-webkit-border-radius: 3px;
-	background: -webkit-gradient(linear, left top, left bottom, from(black), color-stop(.35, #424242), color-stop(.52, #363636), to(black));
-	border: 1px solid black;
-	-webkit-box-shadow: -1px -1px 0 rgba(0, 0, 0, .2), 1px 1px 0 rgba(255, 255, 255, .05) inset, 1px 0 10px rgba(0, 0, 0, 1), 1px 1px 0 rgba(255, 255, 255, .06);
-	position: relative;
-}
 
 /* Free Parks*/
 
@@ -369,85 +311,22 @@ body {
 	background-image: url('../assets/compressed/red_park_ui.png');
 }
 
-#scroller .velib_status .parks_num .flip:before {
-	content: '';
-	display: block;
-	z-index: 200;
-	width: 2px;
-	height: 15px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	background: -webkit-gradient(linear, left top, left bottom, from(black), color-stop(.35, #424242), color-stop(.52, #363636), to(black));
-	border: 1px solid black;
-	-webkit-box-shadow: -1px -1px 0 rgba(0, 0, 0, .2), 
-						1px 1px 0 rgba(255, 255, 255, .05) inset, 
-						1px 0 10px rgba(0, 0, 0, 1), 
-						1px 1px 0 rgba(255, 255, 255, .06);
-	float: left;
-	position: relative;
-	left: 4px;
-	top: 11px;
-}
-
 #scroller .velib_status .parks_num .flip .num1,
 #scroller .velib_status .parks_num .flip .num2 {
-	width: 40px;
-	height: 40px;
+	width: 43px;
+	height: 43px;
 	overflow: hidden;
-	background: #333;
-	background: -webkit-gradient(linear, 30% top, 70% bottom, from(#383838), color-stop(.5, #111), to(#363636));
-	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .1) inset, 
-						0 1px 0 rgba(0, 0, 0, 1) inset, 
-						0 3px 0 rgba(255, 255, 255, .2) inset, 
-						0 4px 0 rgba(0, 0, 0, .75) inset, 
-						0 5px 0 rgba(255, 255, 255, .2) inset, 
-						0 -1px 0 rgba(255, 255, 255, .1) inset, 
-						0 -2px 0 #000 inset, 0 -3px 0 rgba(255, 255, 255, .18) inset, 
-						0 -5px 0 #000 inset, 0 -6px 0 rgba(255, 255, 255, .08) inset, 
-						0 0 30px rgba(0, 0, 0, .3) inset;
-	color: #fff;
+	color: white;
 	text-align: center;
-	line-height: 0px;
-	-webkit-border-radius: 4px;
+	line-height: 43px;
 	font-size: 22px;
-	letter-spacing: 3px;
-	padding-left: 3px;
+	letter-spacing: 1px;
+	padding-left: 1.5px;
 	font-weight: bold;
-}
-
-#scroller .velib_status .parks_num .flip .num1:before,
-#scroller .velib_status .parks_num .flip .num2:before {
-	content: '';
-	display: block;
-	z-index: 100;
-	width: 40px;
-	height: 20px;
-	background: -webkit-gradient(linear, left 80%, left bottom, from(transparent), to(rgba(0, 0, 0, .4)));
-	-webkit-box-shadow: 0 -1px 0 rgba(0, 0, 0, .2) inset, 0 1px 0 rgba(255, 255, 255, .04), 0 5px 100px rgba(255, 255, 255, .3);
-	position: relative;
-	left: -2px;
-}
-
-#scroller .velib_status .parks_num .flip .num1:after,
-#scroller .velib_status .parks_num .flip .num2:after {
-	content: '';
-	display: block;
-	z-index: 100;
-	top: -9px;
-	left: 35px;
-	width: 2px;
-	height: 15px;
-	-webkit-border-radius: 3px;
-	background: -webkit-gradient(linear, left top, left bottom, from(black), color-stop(.35, #424242), color-stop(.52, #363636), to(black));
-	border: 1px solid black;
-	-webkit-box-shadow: -1px -1px 0 rgba(0, 0, 0, .2), 1px 1px 0 rgba(255, 255, 255, .05) inset, 1px 0 10px rgba(0, 0, 0, 1), 1px 1px 0 rgba(255, 255, 255, .06);
-	position: relative;
-}
-
-#scroller .velib_status .parks_num .flip .num2:after {
-	top: 10px;
-	left: 209px;
-	position: absolute;
+	float: left;
+	margin-left: 10px;
+	background-image: url('../assets/compressed/flip_num.png');
+	background-position: -15px -17px;
 }
 
 #scroller .add {
@@ -729,6 +608,13 @@ ul#search_results li {
 		background-image: url('../assets/compressed/info_nav_ui@x2.png');
 	}
 	
+	#scroller .velib_status .velib_num .flip .num1,
+	#scroller .velib_status .velib_num .flip .num2,
+	#scroller .velib_status .parks_num .flip .num1,
+	#scroller .velib_status .parks_num .flip .num2 {
+		background-image: url('../assets/compressed/flip_num@x2.png');
+	}
+	
 	#header #title,
 	#cosmet .add,
 	#search_box #geolocate,
@@ -752,7 +638,11 @@ ul#search_results li {
 	#scroller .velib_status .parks_num .sign1,
 	#scroller .velib_status .parks_num .sign2,
 	#scroller .velib_status .parks_num .green,
-	#scroller .velib_status .parks_num .red {
+	#scroller .velib_status .parks_num .red,
+	#scroller .velib_status .velib_num .flip .num1,
+	#scroller .velib_status .velib_num .flip .num2,
+	#scroller .velib_status .parks_num .flip .num1,
+	#scroller .velib_status .parks_num .flip .num2 {
 		background-size: 75px;
 	}
 	
