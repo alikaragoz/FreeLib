@@ -251,16 +251,17 @@ var freelib = (function() {
 	function geoErrorHandler (error) {
 		switch(error.code) {
 			case error.TIMEOUT:
-				alert('Delai dépassé');
+				// Quite annoying
+				// alert('Delai dépassé');
 				break;
 			case error.POSITION_UNAVAILABLE:
-				alert('Position non disponible');
+				alert('Position non disponible. Etes-vous dans un tunnel?');
 				break;
 			case error.PERMISSION_DENIED:
-				alert('Permission non accordée');
+				alert('Freelib ne peut utiliser votre GPS. Est-il actif?');
 				break;
 			case error.UNKNOWN_ERROR:
-				alert('Erreur inconnuer');
+				alert('Erreur inconnue');
 				break;
 		}
 	}
