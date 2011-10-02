@@ -178,6 +178,9 @@ var freelib = (function() {
 		function(e) {
 			if(e.keyCode == 13) {
 				// Stopping the position watcher
+				
+				$(this).blur();
+				
 				if (navigator.geolocation) {
 					navigator.geolocation.clearWatch(geoWatch);
 				} else {
@@ -307,7 +310,7 @@ var freelib = (function() {
 						var station = value[1];
 						
 						// We are usinge escape to avoid single quotes problems
-						$("#search-wrapper #scroller").append('<li class="s' + station['number'] + '"><div id="station_top" onclick="freelib.showOptions(' + station['number'] + ', \'search-wrapper\');"><div class="location"><div class="adresse"><span id="velib_id">à ' + Math.round(distance*1000) + 'm</span>' + station['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign1"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign2">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></div><div class="options"><div id="opt_refreshs"  onclick="freelib.refresh(' + station['number'] + ', \'search-wrapper\');"></div><div id="opt_map" onclick="freelib.openMap(\'http://maps.google.com/maps?daddr=' + station['lat'] + ',' + station['lng'] + '&saddr=' + pos._lat + ',' + pos._lon + '&dirflg=w&t=m\')"></div><div id="opt_add" onclick="freelib.addStation(' + station['number'] + ',\'' + escape(station['fullAddress']) +'\');"></div></div></li>');
+						$("#search-wrapper #scroller").append('<li class="s' + station['number'] + '"><div id="station_top" onclick="freelib.showOptions(' + station['number'] + ', \'search-wrapper\');"><div class="location"><div class="adresse"><span id="velib_id">à ' + Math.round(distance*1000) + 'm</span>' + station['fullAddress'] + '</div></div><div class="velib_status"><div class="velib_num"><div class="sign1"></div><div class="flip"><div class="num1">?</div></div></div><div class="parks_num"><div class="sign2">P</div><div class="flip"><div class="num2">?</div></div></div></div><div class="clr"></div></div><div class="options"><div id="opt_refreshs"  onclick="freelib.refresh(' + station['number'] + ', \'search-wrapper\');"></div><div id="opt_map" onclick="freelib.openMap(' + station['lat'] + ',' + station['lng'] + ',' + pos._lat + ',' + pos._lon + ')"></div><div id="opt_add" onclick="freelib.addStation(' + station['number'] + ',\'' + escape(station['fullAddress']) +'\');"></div></div></li>');
 
 						// Refreh the scroller with the new elements
 						searchScroll.refresh();
@@ -339,7 +342,6 @@ var freelib = (function() {
 			var station = value[1];
 			var xml = new Array();
 			var stationURL = 'velib.php/?get=' + station['number'];
-			console.log(stationURL);
 			
 			$.getJSON(stationURL, 
 				function(data) {
@@ -619,9 +621,15 @@ var freelib = (function() {
 		}
 	}
 	
-	function openMap (link) {
-		window.open(link)
-	}
+	function openMap (src_lat, src_long, dst_lat, dst_long) {
+			if ($.os.android) {
+				url = 'maps:maps.google.com/maps?daddr=' + src_lat + ',' + src_long + '&saddr=' + dst_lat + ',' + dst_long + '&dirflg=w&t=m';
+			} else {
+				url = 'http://maps.google.com/maps?daddr=' + src_lat + ',' + src_long + '&saddr=' + dst_lat + ',' + dst_long + '&dirflg=w&t=m';
+			}
+			
+			window.open(url)
+		}
 	
 	function showSplash(type) {
 		var cosmet;
