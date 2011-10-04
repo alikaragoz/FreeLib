@@ -480,9 +480,10 @@ var freelib = (function() {
 							};
 						});
 					});
+					console.log('Hello World!');
 					showSplash('none');
 				} else {
-					showSplash('favs');
+					2;
 				}
 			}
 		});

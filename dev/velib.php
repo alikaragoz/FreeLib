@@ -1,6 +1,6 @@
 <?php
 if (is_numeric($_GET['get']) || $_GET['get'] == 'map')  {
-	$url = (is_numeric($_GET["get"]) ? 'http://www.velib.paris.fr/service/stationdetails/'.$_GET["get"] : "http://www.velib.paris.fr/service/carto/");
+	$url = (is_numeric($_GET["get"]) ? 'http://www.velib.paris.fr/service/stationdetails/paris/'.$_GET["get"] : "http://www.velib.paris.fr/service/carto/");
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
