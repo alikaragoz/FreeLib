@@ -480,10 +480,10 @@ var freelib = (function() {
 							};
 						});
 					});
-					console.log('Hello World!');
 					showSplash('none');
 				} else {
-					2;
+					// When loading and no favs
+					showSplash('favs');
 				}
 			}
 		});
@@ -536,6 +536,10 @@ var freelib = (function() {
 		
 		$("#cosmet").css({'top': '51px'});
 		$('#cosmet').css('height', window.innerHeight-101 + 'px');
+		
+		if (numFavs == 0) {
+			showSplash('favs');
+		};
 	}
 	
 	function showSearch() {
