@@ -587,6 +587,8 @@ var freelib = (function() {
 		$("#favs-wrapper #scroller").hide();
 		$("#search-wrapper #scroller").hide();
 		$("#info-wrapper #scroller").show();
+		
+		infoScroll.refresh();
 	}
 	
 	function addStation (stationNum, fullAddress) {
