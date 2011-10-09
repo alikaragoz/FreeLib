@@ -480,6 +480,7 @@ var freelib = (function() {
 							};
 						});
 					});
+					console.log('Hello World!');
 					showSplash('none');
 				} else {
 					// When loading and no favs
@@ -529,6 +530,10 @@ var freelib = (function() {
 			console.log('Browser not supported.');
 		}
 		
+		if (numFavs == 0) {
+			showSplash('favs');
+		}
+		
 		$("#fav-wrapper").css({'z-index': '2'});
 		$("#search_box_bg").css({'z-index': '1', 'display': 'none'});			
 		$("#middle").css({'top': '51px'});
@@ -536,10 +541,6 @@ var freelib = (function() {
 		
 		$("#cosmet").css({'top': '51px'});
 		$('#cosmet').css('height', window.innerHeight-101 + 'px');
-		
-		if (numFavs == 0) {
-			showSplash('favs');
-		};
 	}
 	
 	function showSearch() {
@@ -566,8 +567,11 @@ var freelib = (function() {
 			console.log('Browser not supported.');
 		}
 		
+		showSplash('none');
+		
 		$("#info-wrapper").css({'z-index': '2'});
-		$("#middle").css({'top': -(window.innerHeight-152)*2 + 'px'});
+		$("#search_box_bg").css({'z-index': '1', 'display': 'none'});
+		$("#middle").css({'top': -(window.innerHeight-153)*2 + 'px'});
 		$("#cursor").css({'margin-left': '165px'});
 	}
 	

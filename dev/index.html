@@ -67,12 +67,14 @@ function loaded() {
 	setTimeout(function () {
 		favScroll = new iScroll('fav-wrapper',{ scrollbarClass: 'myScrollbar'});
 		searchScroll = new iScroll('search-wrapper', { scrollbarClass: 'myScrollbar'});
+		infoScroll = new iScroll('info-wrapper', { scrollbarClass: 'myScrollbar'});
 		freelib.init();
 		// If this is an android device
 		//if ($.os.android) window.scrollTo(0, 1);
 	}, 200);
 	$('#fav-wrapper').css('height', window.innerHeight-101 + 'px');
 	$('#search-wrapper').css('height', window.innerHeight-154 + 'px');
+	$('#info-wrapper').css('height', window.innerHeight-101 + 'px');
 	$('#cosmet').css('height', window.innerHeight-154 + 'px');
 }
 
@@ -119,6 +121,15 @@ window.addEventListener('load', loaded, false);
 	
 	<!-- Search List -->
 	<div id="search-wrapper"><ul id="scroller"></ul></div>
+	
+	<div id="info-wrapper"><ul id="scroller">
+		<li class="title">Free<span>Lib'</span></li>
+		<li class="desc">
+			<p>FreeLib' est une webapp mobile qui a été créée dans le but d'améliorer l'expérience des utilisateurs du Velib'.</p>
+			<p>Le maître mot de FreeLib' est rapidité! Connaître le statut d'une station est un jeu d'enfant et ne prend pas plus de 3 secondes. Pour les utilisateurs éxigents, vous avez le possibilité de constituer votre propre liste de stations favorites.</p>
+			<p>FreeLib' est un service imaginé et développé par le collectif <a href="http://fourvinger.com/">Fourvinger</a> et n'est aucunement affilié au service Vélib' proposé par la mairie de Paris et JC Decaux.</p>
+		</li>
+	</ul></div>
 </div>
 <div id="footer">
 	 <ul>
