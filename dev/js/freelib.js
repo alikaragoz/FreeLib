@@ -30,6 +30,7 @@ var freelib = (function() {
 	*/
 	
 	function init () {
+		
 		// We check if the database already exists
 		initDb();
 		
@@ -541,6 +542,11 @@ var freelib = (function() {
 		
 		$("#cosmet").css({'top': '51px'});
 		$('#cosmet').css('height', window.innerHeight-101 + 'px');
+
+		$("#favs-wrapper #scroller").show();
+		$("#search-wrapper #scroller").hide();
+		$("#info-wrapper #scroller").hide();
+		
 	}
 	
 	function showSearch() {
@@ -556,6 +562,10 @@ var freelib = (function() {
 		
 		$("#cosmet").css({'top': '101px'});
 		$('#cosmet').css('height', window.innerHeight-154 + 'px');
+		
+		$("#fav-wrapper #scroller").hide();
+		$("#search-wrapper #scroller").show();
+		$("#info-wrapper #scroller").hide();
 	}
 	
 	function showInfo() {
@@ -573,6 +583,10 @@ var freelib = (function() {
 		$("#search_box_bg").css({'z-index': '1', 'display': 'none'});
 		$("#middle").css({'top': -(window.innerHeight-153)*2 + 'px'});
 		$("#cursor").css({'margin-left': '165px'});
+		
+		$("#favs-wrapper #scroller").hide();
+		$("#search-wrapper #scroller").hide();
+		$("#info-wrapper #scroller").show();
 	}
 	
 	function addStation (stationNum, fullAddress) {
