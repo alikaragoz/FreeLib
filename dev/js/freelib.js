@@ -389,11 +389,12 @@ var freelib = (function() {
 					switch(action) {
 						// Add in the favorites
 						case 'add':
-							numFavs = rs.rows.item(0)['favoris'].split(',').length;
+							numFavs += 1;
 							favoris = (rs.rows.item(0)['favoris'] == '' ? stationNum.toString() : rs.rows.item(0)['favoris'] + ',' + stationNum);
 							break;
 						// Remove from favorites
 						case 'remove':
+							numFavs -= 1;
 							// if the list is not empty after removing an element
 							if (rs.rows.item(0)['favoris'].split(',').length - 1 > 0) {
 								rs.rows.item(0)['favoris'].split(',').forEach(function(value, index, array) {
@@ -481,7 +482,6 @@ var freelib = (function() {
 							};
 						});
 					});
-					console.log('Hello World!');
 					showSplash('none');
 				} else {
 					// When loading and no favs
@@ -530,7 +530,6 @@ var freelib = (function() {
 		else{
 			console.log('Browser not supported.');
 		}
-		
 		if (numFavs == 0) {
 			showSplash('favs');
 		}
@@ -543,7 +542,7 @@ var freelib = (function() {
 		$("#cosmet").css({'top': '51px'});
 		$('#cosmet').css('height', window.innerHeight-101 + 'px');
 
-		$("#favs-wrapper #scroller").show();
+		$("#fav-wrapper #scroller").show();
 		$("#search-wrapper #scroller").hide();
 		$("#info-wrapper #scroller").hide();
 		
@@ -584,7 +583,7 @@ var freelib = (function() {
 		$("#middle").css({'top': -(window.innerHeight-153)*2 + 'px'});
 		$("#cursor").css({'margin-left': '165px'});
 		
-		$("#favs-wrapper #scroller").hide();
+		$("#fav-wrapper #scroller").hide();
 		$("#search-wrapper #scroller").hide();
 		$("#info-wrapper #scroller").show();
 		
