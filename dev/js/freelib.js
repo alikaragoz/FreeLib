@@ -41,8 +41,7 @@ var freelib = (function() {
 		updateFavoriteStations();
 		
 		// Activate the search in the input box
-		searchStationNear();
-		
+		searchStationNear();	
 	}
 
 	/* 
@@ -50,11 +49,11 @@ var freelib = (function() {
 	*/	
 	
 	function initDb() {
-		sqlQuery = 'CREATE TABLE IF NOT EXISTS prefs (id REAL UNIQUE, favoris LONGTEXT, lastVisit DATE)';		
-        dbQuery(sqlQuery);
+		sqlQuery = 'CREATE TABLE IF NOT EXISTS prefs (id REAL UNIQUE, favoris LONGTEXT, lastVisit DATE)';
+		dbQuery(sqlQuery);
 		
 		var sqlQuery = 'CREATE TABLE IF NOT EXISTS map (id REAL UNIQUE, address TEXT, bonus INT, fullAddress TEXT, lat FLOAT, lng FLOAT, name TEXT, number INT, open INT)';		
-        dbQuery(sqlQuery);
+		dbQuery(sqlQuery);
     }
    
     /*
@@ -208,7 +207,7 @@ var freelib = (function() {
 				var pos = new LatLon(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 				searchPosition(pos);
 			} else {
-				showSplash('search');
+				showSplash('unfortunate-search');
 			}
 		});
 	}
@@ -300,7 +299,7 @@ var freelib = (function() {
 				}
 
 				if (stationsAround == 0) {
-					showSplash('search');
+					showSplash('unfortunate-geo');
 				} else {
 					showSplash('none');
 					// We sor the stations by the closest first
@@ -552,7 +551,7 @@ var freelib = (function() {
 		// For more accurate positionning 
 		geoWatcher();
 
-		showSplash('none');
+		showSplash('search');
 		
 		$("#search-wrapper").css({'z-index': '2'});
 		$("#search_box_bg").css({'z-index': '3', 'display': 'block'});
@@ -668,7 +667,21 @@ var freelib = (function() {
 			case 'search' :
 				$("#search-wrapper #scroller").html('');
 				$('#cosmet').css('z-index', '5');
+				cosmet = '<ul><li class="search" onclick="$(\'#search\').focus()"></li><li class="geoloc" onclick="freelib.geolocate()"></li></ul>';
+				$('#cosmet').html(cosmet);
+				$('#search-wrapper #scroller').html('');
+				break;
+			case 'unfortunate-geo' :
+				$("#search-wrapper #scroller").html('');
+				$('#cosmet').css('z-index', '5');
 				cosmet = '<ul><li class="text">Aucune station à moins de 500m</li></ul>';
+				$('#cosmet').html(cosmet);
+				$('#search-wrapper #scroller').html('');
+				break;
+			case 'unfortunate-search' :
+				$("#search-wrapper #scroller").html('');
+				$('#cosmet').css('z-index', '5');
+				cosmet = '<ul><li class="text"> Aucune station près de cette position</li></ul>';
 				$('#cosmet').html(cosmet);
 				$('#search-wrapper #scroller').html('');
 				break;

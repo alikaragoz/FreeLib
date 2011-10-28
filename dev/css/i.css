@@ -442,6 +442,26 @@ body {
 	background-repeat: no-repeat;
 }
 
+#cosmet .search {
+	background-image: url('../assets/uncompressed/search_search_ui.png');
+	background-position: center;
+	height: 80px;
+	width: 80px;
+	position: relative;
+	margin: 0 auto;
+	background-repeat: no-repeat;
+}
+
+#cosmet .geoloc {
+	background-image: url('../assets/uncompressed/geolocate_search_ui.png');
+	background-position: center;
+	height: 80px;
+	width: 80px;
+	position: relative;
+	margin: 0 auto;
+	background-repeat: no-repeat;
+}
+
 /* Search box */
 
 #search_box_bg {
@@ -563,6 +583,14 @@ ul#search_results li {
 		background-image: url('../assets/compressed/add_home_ui@x2.png');
 	}
 	
+	#cosmet .search {
+		background-image: url('../assets/uncompressed/search_search_ui@x2.png');
+	}
+	
+	#cosmet .geoloc {
+		background-image: url('../assets/uncompressed/geolocate_search_ui@x2.png');
+	}
+	
 	#scroller .velib_status .velib_num .sign1,
 	#scroller .velib_status .velib_num .sign2 {
 		background-image: url('../assets/compressed/green_bike_ui@x2.png');
@@ -652,6 +680,8 @@ ul#search_results li {
 	
 	#header #title,
 	#cosmet .add,
+	#cosmet .search,
+	#cosmet .geoloc,
 	#search_box #geolocate,
 	#search_box #search_shape,
 	#footer #cursor,
