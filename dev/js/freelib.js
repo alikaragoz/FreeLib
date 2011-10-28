@@ -1,5 +1,3 @@
-// TODO : Compress all the images
-
 var freelib = (function() {
 		
     // Global variables
@@ -30,7 +28,6 @@ var freelib = (function() {
 	*/
 	
 	function init () {
-		
 		// We check if the database already exists
 		initDb();
 		
@@ -41,7 +38,14 @@ var freelib = (function() {
 		updateFavoriteStations();
 		
 		// Activate the search in the input box
-		searchStationNear();	
+		searchStationNear();
+		
+		$(window).bind('resize', function(event) {
+			$('#fav-wrapper').css('height', window.innerHeight - 101 + 'px');
+			$('#search-wrapper').css('height', window.innerHeight - 154 + 'px');
+			$('#info-wrapper').css('height', window.innerHeight - 101 + 'px');
+			$('#cosmet').css('height', window.innerHeight - ((section == 'favs') ? 101 : 154) + 'px');
+		});
 	}
 
 	/* 
@@ -74,7 +78,6 @@ var freelib = (function() {
     */
 	
 	function getMap() {
-        // We build the YQL URL to fetch the map on velib's service
         var mapURL = 'velib.php/?get=map';
         var xml = new Array();
         $.getJSON(mapURL, function(data) {
@@ -128,6 +131,7 @@ var freelib = (function() {
 		dbQuery(sqlQuery, undefined, function(tx, rs) {
 			if(rs.rows.length == 0) {
 				updateLastVisit();
+				showSplash('favs');
 				getMap();
 			} else {
 				var currentTime = new Date();
@@ -529,10 +533,13 @@ var freelib = (function() {
 		else{
 			console.log('Browser not supported.');
 		}
+
 		if (numFavs == 0) {
 			showSplash('favs');
+		} else {
+			showSplash('none');
 		}
-		
+
 		$("#fav-wrapper").css({'z-index': '2'});
 		$("#search_box_bg").css({'z-index': '1', 'display': 'none'});			
 		$("#middle").css({'top': '51px'});
@@ -660,30 +667,28 @@ var freelib = (function() {
 		switch(type) {
 			case 'favs' :
 				$("#fav-wrapper #scroller").html('');
-				$('#cosmet').css('z-index', '5');
+				$('#cosmet').css('z-index', '3');
+				$('#cosmet').css({'top': 51 + 'px', 'z-index' : 3});
 				cosmet = '<ul><li class="text">Ajouter des stations</li><li class="add" onclick="freelib.showView(\'search\')"></li></ul>';
 				$('#cosmet').html(cosmet);
 				break;
 			case 'search' :
 				$("#search-wrapper #scroller").html('');
-				$('#cosmet').css('z-index', '5');
+				$('#cosmet').css({'top': 154 + 'px', 'z-index' : 3});
 				cosmet = '<ul><li class="search" onclick="$(\'#search\').focus()"></li><li class="geoloc" onclick="freelib.geolocate()"></li></ul>';
 				$('#cosmet').html(cosmet);
-				$('#search-wrapper #scroller').html('');
 				break;
 			case 'unfortunate-geo' :
 				$("#search-wrapper #scroller").html('');
-				$('#cosmet').css('z-index', '5');
+				$('#cosmet').css({'top': 101 + 'px', 'z-index' : 3});
 				cosmet = '<ul><li class="text">Aucune station à moins de 500m</li></ul>';
 				$('#cosmet').html(cosmet);
-				$('#search-wrapper #scroller').html('');
 				break;
 			case 'unfortunate-search' :
 				$("#search-wrapper #scroller").html('');
-				$('#cosmet').css('z-index', '5');
+				$('#cosmet').css({'top': 101 + 'px', 'z-index' : 3});
 				cosmet = '<ul><li class="text"> Aucune station près de cette position</li></ul>';
 				$('#cosmet').html(cosmet);
-				$('#search-wrapper #scroller').html('');
 				break;
 			case 'none' :
 				$('#cosmet').css('z-index', '-1');
@@ -692,7 +697,7 @@ var freelib = (function() {
 			case 'spin' :
 				// Cleaning the list before adding new ones
 				$("#search-wrapper #scroller").html('');
-				$('#cosmet').css('z-index', '5');
+				$('#cosmet').css('z-index', '3');
 				$('#cosmet').html('');
 				addSpinner('cosmet');
 				break;
@@ -745,16 +750,6 @@ var freelib = (function() {
 		list[b] = list[a];
 		list[a] = element;
 		return list;
-	}
-	
-	window.onresize = function() {
-		$('#fav-wrapper').css('height', window.innerHeight-101 + 'px');
-		$('#search-wrapper').css('height', window.innerHeight-154 + 'px');
-		
-		var top = ( section == 'favs' ? 51 : ( section == 'search' ? -(window.innerHeight-205) : ( section == 'search' ? -(window.innerHeight-152)*2 : null )));
-
-		$('#cosmet').css('height', window.innerHeight-101 + 'px');
-		$("#middle").css({'top': top + 'px'});
 	}
 	
     return {
