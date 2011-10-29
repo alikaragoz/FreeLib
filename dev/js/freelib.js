@@ -687,7 +687,7 @@ var freelib = (function() {
 			case 'unfortunate-search' :
 				$("#search-wrapper #scroller").html('');
 				$('#cosmet').css({'top': 101 + 'px', 'z-index' : 3});
-				cosmet = '<ul><li class="text"> Aucune station près de cette position</li></ul>';
+				cosmet = '<ul><li class="text">Aucune station près de cette position</li></ul>';
 				$('#cosmet').html(cosmet);
 				break;
 			case 'none' :

@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2011-10-29:v0.902
+# 2011-10-29:v0.912
 
 CACHE:
 #syle
@@ -69,5 +69,4 @@ assets/up_ui.png
 assets/up_ui@x2.png
 
 NETWORK:
-http://freelib.me
-http://maps.googleapis.com
+*
