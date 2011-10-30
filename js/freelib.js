@@ -38,13 +38,6 @@ var freelib = (function() {
 		
 		// Activate the search in the input box
 		searchStationNear();
-		
-		$(window).bind('resize', function(event) {
-			$('#fav-wrapper').css('height', window.innerHeight - 101 + 'px');
-			$('#search-wrapper').css('height', window.innerHeight - 154 + 'px');
-			$('#info-wrapper').css('height', window.innerHeight - 101 + 'px');
-			$('#cosmet').css('height', window.innerHeight - ((section == 'favs') ? 101 : 154) + 'px');
-		});
 	}
 
 	/* 
@@ -719,7 +712,9 @@ var freelib = (function() {
 		target.appendChild(spinner.el);
 	}
 	
-	/* Utils */
+	/* 
+		Utils 
+	*/
 	
 	function dbQuery (sqlQuery, sqlVariables, callback) {
 		try {
@@ -740,10 +735,23 @@ var freelib = (function() {
 		};
 	}
 	
+	/* 
+		When we resize, we put everything right. 
+	*/
+	
+	$(window).bind('resize', function(event) {
+		$('#fav-wrapper').css('height', window.innerHeight - 101 + 'px');
+		$('#search-wrapper').css('height', window.innerHeight - 154 + 'px');
+		$('#info-wrapper').css('height', window.innerHeight - 101 + 'px');
+		$('#cosmet').css('height', window.innerHeight - ((section == 'favs' || section == 'info') ? 101 : 154) + 'px');
+		
+		var top = ( section == 'favs' ? 51 : ( section == 'search' ? -(window.innerHeight-205) : ( section == 'info' ? -(window.innerHeight-153)*2 : null )));
+		$("#middle").css({'top': top + 'px'});
+	});
+	
 	/*
 		Function to swap 2 elements in an array.
 	*/
-	
 	function swap (a, b, list) {
 		var element = list[b];
 		list[b] = list[a];
