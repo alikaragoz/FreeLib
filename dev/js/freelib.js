@@ -22,7 +22,6 @@ var freelib = (function() {
 	var section = 'favs';
 	var numFavs = 0;
 	
-	
 	/* 
 		Initialisation function 
 	*/
@@ -147,7 +146,7 @@ var freelib = (function() {
 				// We retirve the number of days since last visit
 				var numDays = (Date.parse(thisTime) - Date.parse(lastTime)) / 1000 / 3600 / 24;
 
-				// We check every week for new station
+				// We check every week for new stations
 				if (numDays >= 7) { 
 					resetDB();
 					initDb();
