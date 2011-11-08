@@ -30,11 +30,11 @@ var freelib = (function() {
 		// We check if the database already exists
 		initDb();
 		
-		// Check if the map is up to date
-		checkMapUpdate();
-		
 		// At startup we update the list of favs
 		updateFavoriteStations();
+		
+		// Check if the map is up to date
+		checkMapUpdate();
 		
 		// Activate the search in the input box
 		searchStationNear();
@@ -61,8 +61,9 @@ var freelib = (function() {
 		var sqlQuery = 'DROP TABLE IF EXISTS map';		
         dbQuery(sqlQuery);
 		
-		sqlQuery = 'DROP TABLE IF EXISTS prefs';
-		dbQuery(sqlQuery);
+		// Erase the user's preferences
+		//sqlQuery = 'DROP TABLE IF EXISTS prefs';
+		//dbQuery(sqlQuery);
 	}
 
     /*
@@ -132,6 +133,8 @@ var freelib = (function() {
 				var year = currentTime.getFullYear();
 
 				lastTime = rs.rows.item(0)['lastVisit'];
+				
+				//uncomment to reset the map and re-download it
 				//lastTime = '08/01/2011';
 
 				var thisTime = month + '/' + day + '/' + year;
