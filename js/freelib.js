@@ -251,7 +251,7 @@ var freelib = (function() {
 		switch(error.code) {
 			case error.TIMEOUT:
 				// Quite annoying
-				// alert('Delai dépassé');
+			 	//alert('Delai dépassé');
 				break;
 			case error.POSITION_UNAVAILABLE:
 				alert('Position non disponible. Etes-vous dans un tunnel?');
