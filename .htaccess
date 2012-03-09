@@ -1,7 +1,7 @@
-# VISUALISATION DES DOSSIERS INTERDITE
+# Forbidding access to folders
 Options -Indexes
 
-# OPTION DU CACHING EN HTML5
+# HTML5 caching option
 AddType text/cache-manifest .manifest
 
 <Files freelib.manifest>

@@ -88,9 +88,9 @@ var freelib = (function() {
 		// If the map is not empty
 		if (map != null) {
 			try {
-	            if (window.openDatabase) {
-	                db = openDatabase(databaseName, databaseVersion, databaseDesc, databaseMaxSize);
-	                if (db) {
+				if (window.openDatabase) {
+					db = openDatabase(databaseName, databaseVersion, databaseDesc, databaseMaxSize);
+					if (db) {
 						db.transaction(function(tx) {
 							var i = 0
 							$(map).each(function() {
@@ -764,8 +764,8 @@ var freelib = (function() {
 	
     return {
 		init: init,
-        reset: resetDB,
-        getMap: getMap,
+		reset: resetDB,
+		getMap: getMap,
 		geolocate: geolocate,
 		showView: showView,
 		addStation: addStation,

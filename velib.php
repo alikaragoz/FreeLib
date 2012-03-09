@@ -8,7 +8,6 @@ if (is_numeric($_GET['get']) || $_GET['get'] == 'map')  {
 	curl_close($ch);
 	echo json_encode(simplexml_load_string($output));
 } else {
-	echo "petit coquin ;)";
+	echo "Hello World!";
 }
-
 ?>
